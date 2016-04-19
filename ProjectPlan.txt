@@ -1,0 +1,11 @@
+- Use the photosensor circuit (BitBeacon) to control movement towards the person holding the emitter.
+- BitEmitter is a sine wave signal > 120 Hz probably 1.5 kHz at least one decade higher 120 Hz.
+- Bit will proceed in the direction of the highest intensity (north, south, east, west) with gradations in between.
+
+
+Use the nRF24L01 to do fancy movements
+The nRF24L01 modules will override the BitBeacon circuit
+1. Figure 8
+2. Cute patterns
+
+
