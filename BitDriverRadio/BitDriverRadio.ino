@@ -27,18 +27,23 @@ void setup()
   Serial.println("Radio started");
   radio.openReadingPipe(1,pipe);
   Serial.println("Pipe opened");
+  radio.StartListening();
+  Serial.println("LIstening...");
 }
 
 void loop()
 {
-  receiveRadio();  
+  receiveRadio();
+    
 }
 
 void receiveRadio()
 {
     if (radio.available)
     {
-      
+      bool done = false;
+      done = radio.read(msg, 1);
+      char theChar = 
     }
     else
     {
