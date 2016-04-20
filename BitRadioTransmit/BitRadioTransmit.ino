@@ -5,7 +5,7 @@
 
 
 //JOYSTICK
-const int SW_pin = 2; //Digital pin connected to switch input
+const int SW_pin = 3; //Digital pin connected to switch input
 const int X_pin = A0; //Analog pin connected to X output
 const int Y_pin = A1; //Analog pin connecte to Y output
 int x_joy;            //Joystick X Output
@@ -40,7 +40,12 @@ void loop(void)
   msg[0] = sw_joy;
   msg[1] = x_joy;
   msg[2] = y_joy;
-  radio.write(msg,1);
+  radio.write(msg,3);
+//  Serial.print(msg[0]);
+//  Serial.print('\t');
+//  Serial.print(msg[1]);
+//  Serial.print('\t');
+//  Serial.println(msg[2]);
 /*delay sending for a short period of time.  radio.powerDown()/radio.powerupp
 //with a delay in between have worked well for this purpose(just using delay seems to
 //interrupt the transmission start). However, this method could still be improved
@@ -48,6 +53,6 @@ as I still get the first character 'cut-off' sometimes. I have a 'checksum' func
 on the receiver to verify the message was successfully sent.
 */
   radio.powerDown(); 
-  delay(1000);
+  delay(100);
   radio.powerUp();
 }
