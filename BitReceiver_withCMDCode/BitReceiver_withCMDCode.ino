@@ -4,6 +4,8 @@
 #include <RF24_config.h>
 
 
+
+
 int messageLength = 12;
 int msg[1];
 RF24 radio(9,10);
@@ -55,20 +57,24 @@ void loop(void)
     char charBuf[length];
     
     theMessage.substring(0,delimiter).toCharArray(charBuf,length);
-    double buttonVal = atof(charBuf);
+    int buttonVal = atof(charBuf);
     
     theMessage.substring(delimiter+1, delimiter2).toCharArray(charBuf,length);
-    double xDir = atof(charBuf);
+    int xDir = atof(charBuf);
 
     theMessage.substring(delimiter2+1, theMessage.length()).toCharArray(charBuf,length);
-    double yDir = atof(charBuf);
+    int yDir = atof(charBuf);
 
-    Serial.println(theMessage);
-    Serial.println(buttonVal);
-    Serial.println(xDir);
+
+    //Serial.println(theMessage);
+    Serial.print(buttonVal); Serial.print('\t');
+    Serial.print(xDir); Serial.print('\t');
     Serial.println(yDir);
 
+
     theMessage = "";
+
+    
   }
   delay(10);
 }

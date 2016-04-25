@@ -29,7 +29,7 @@ void loop()
     int charToSend[1];
     charToSend[0] = theMessage.charAt(i);
     radio.write(charToSend, 1);
-    //Serial.println(theMessage);
+    Serial.println(theMessage);
   }
 
   //send the 'terminate string' value
