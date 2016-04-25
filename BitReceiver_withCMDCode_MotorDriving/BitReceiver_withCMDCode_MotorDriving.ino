@@ -20,6 +20,9 @@ char theChar = 0;
 int xBuffer[];
 int yBuffer[];
 
+
+int zeroLine = 10;
+
 void setup(void)
 {
   Serial.begin(115200);
@@ -78,32 +81,69 @@ void loop(void)
     }
 
 
-
-    if(xDir > 10)
+    if ((abs(xDir) - abs(yDir)) > zeroLine) //user is trying to go forward and backward
     {
-      analogWrite(l1_motor, xDir);
-      analogWrite(l2_motor, 0);
-      
-      analogWrite(r1_motor, xDir);
-      analogWrite(r2_motor, 0);
+      if(xDir > zeroLine)
+      {
+        analogWrite(l1_motor, xDir);
+        analogWrite(l2_motor, 0);
+        
+        analogWrite(r1_motor, xDir);
+        analogWrite(r2_motor, 0);
+      }
+      else if(xDir < -zeroLine)
+      {
+        analogWrite(l2_motor, abs(xDir));
+        analogWrite(l1_motor, abs(0));
+        
+        analogWrite(r2_motor, abs(xDir));
+        analogWrite(r1_motor, abs(0));
+      }
+      else 
+      {
+        analogWrite(l2_motor, 0);
+        analogWrite(l1_motor, abs(0));
+        
+        analogWrite(r1_motor, 0);
+        analogWrite(r2_motor, abs(0));
+      } 
     }
-    else if(xDir < -10)
+    else if
     {
-      analogWrite(l2_motor, abs(xDir));
-      analogWrite(l1_motor, abs(0));
-      
-      analogWrite(r2_motor, abs(xDir));
-      analogWrite(r1_motor, abs(0));
+      if(yDir > zeroLine) //turn right
+      {
+        analogWrite(l1_motor, 0);
+        analogWrite(l2_motor, 0);
+        
+        analogWrite(r1_motor, yDir);
+        analogWrite(r2_motor, 0);
+      }
+      else if(yDir < -zeroLine) //turn left
+      {
+        analogWrite(l2_motor, abs(yDir));
+        analogWrite(l1_motor, abs(0));
+        
+        analogWrite(r2_motor, 0);
+        analogWrite(r1_motor, 0);
+      }
+      else 
+      {
+        analogWrite(l2_motor, 0);
+        analogWrite(l1_motor, 0);
+        
+        analogWrite(r1_motor, 0);
+        analogWrite(r2_motor, 0);      
+      }
     }
-
-    else 
+    else
     {
       analogWrite(l2_motor, 0);
-      analogWrite(l1_motor, abs(0));
-      
+      analogWrite(l1_motor, 0);
+        
       analogWrite(r1_motor, 0);
-      analogWrite(r2_motor, abs(0));      
+      analogWrite(r2_motor, 0); 
     }
+    
 
     //Serial.println(theMessage);
     Serial.print(buttonVal); Serial.print('\t');
