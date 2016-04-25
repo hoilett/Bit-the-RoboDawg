@@ -17,15 +17,16 @@ int lastmsg = 1;
 String theMessage = "";
 char theChar = 0;
 
-int xBuffer[4];
-int yBuffer[4];
+int xBuffer[5];
+int yBuffer[5];
 int bufferVal = 0;
 int xDir;
 int yDir;
+int buttonVal;
 
 void setup(void)
 {
-  Serial.begin(115200);
+  //Serial.begin(115200);
   radio.begin();
   radio.openReadingPipe(1,pipe);
   radio.startListening();
@@ -50,8 +51,9 @@ void loop(void)
       radio.read(msg, 1);
       theChar = msg[0];
     }
-  if(bufferVal <= 4)
-  {
+
+   if (bufferVal <= 4)
+   {
     int delimiter = theMessage.indexOf(',');
     
     
@@ -60,30 +62,39 @@ void loop(void)
     char charBuf[length];
     
     theMessage.substring(0,delimiter).toCharArray(charBuf,length);
-    int buttonVal = atof(charBuf);
+    buttonVal = atof(charBuf);
     
     theMessage.substring(delimiter+1, delimiter2).toCharArray(charBuf,length);
-    xBuffer[bufferVal] = atof(charBuf);
+    xBuffer[bufferVal] = (int)atof(charBuf);
+    //Serial.print(xBuffer[bufferVal]); Serial.print('\t');
+    
 
     theMessage.substring(delimiter2+1, theMessage.length()).toCharArray(charBuf,length);
-    yBuffer[bufferVal] = atof(charBuf);
-    bufferVal = bufferVal + 1;
-  }
+    yBuffer[bufferVal] = (int)atof(charBuf);
+    if (xBuffer[bufferVal] <= 1023 && xBuffer[bufferVal] >= 0 && yBuffer[bufferVal] <= 1023 && yBuffer[bufferVal] >= 0)
+    {
+      bufferVal = bufferVal + 1;
+    }
+   }
   else 
   {
     bufferVal = 0;
     xDir = (xBuffer[0] + xBuffer[1] + xBuffer[2] + xBuffer[3] + xBuffer[4])/5;
+    //Serial.print(xDir); Serial.print('\t');
     yDir = (yBuffer[0] + yBuffer[1] + yBuffer[2] + yBuffer[3] + yBuffer[4])/5;
-  }
     if (xDir <= 1023 && yDir <= 1023)
     {
       xDir = map(xDir, 0, 1023, -255, 255);
+      //Serial.println(xDir);
       yDir = map(yDir, 0, 1023, -255, 255);
     }
+  }
 
 
+    
 
-    if(xDir > 10)
+
+    if(xDir > 50)
     {
       analogWrite(l1_motor, xDir);
       analogWrite(l2_motor, 0);
@@ -91,7 +102,7 @@ void loop(void)
       analogWrite(r1_motor, xDir);
       analogWrite(r2_motor, 0);
     }
-    else if(xDir < -10)
+    else if(xDir < -50)
     {
       analogWrite(l2_motor, abs(xDir));
       analogWrite(l1_motor, abs(0));
@@ -109,15 +120,15 @@ void loop(void)
       analogWrite(r2_motor, abs(0));      
     }
 
-    //Serial.println(theMessage);
-    Serial.print(buttonVal); Serial.print('\t');
-    Serial.print(xDir); Serial.print('\t');
-    Serial.println(yDir);
+//    //Serial.println(theMessage);
+//    Serial.print(buttonVal); Serial.print('\t');
+//    Serial.print(xDir); Serial.print('\t');
+//    Serial.println(yDir);
 
 
     theMessage = "";
 
     
   }
-  delay(10);
+  //delay(1);
 }
