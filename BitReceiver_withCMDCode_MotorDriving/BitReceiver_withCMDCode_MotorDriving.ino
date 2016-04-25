@@ -17,8 +17,11 @@ int lastmsg = 1;
 String theMessage = "";
 char theChar = 0;
 
-int xBuffer[];
-int yBuffer[];
+int xBuffer[4];
+int yBuffer[4];
+int bufferVal = 0;
+int xDir;
+int yDir;
 
 void setup(void)
 {
@@ -47,17 +50,11 @@ void loop(void)
       radio.read(msg, 1);
       theChar = msg[0];
     }
- 
-    //Serial.print("this message: ");
-    //Serial.println(theMessage);
-
-    //theMessage = "10,2,5";
+  if(bufferVal <= 4)
+  {
     int delimiter = theMessage.indexOf(',');
-    //Serial.print("delimiter: ");
-    //Serial.println(delimiter);
     
     
-    //delimiter = theMessage.indexOf(',');
     int delimiter2 = theMessage.indexOf(',', (delimiter+1));
     int length = theMessage.length();
     char charBuf[length];
@@ -66,11 +63,18 @@ void loop(void)
     int buttonVal = atof(charBuf);
     
     theMessage.substring(delimiter+1, delimiter2).toCharArray(charBuf,length);
-    int xDir = atof(charBuf);
+    xBuffer[bufferVal] = atof(charBuf);
 
     theMessage.substring(delimiter2+1, theMessage.length()).toCharArray(charBuf,length);
-    int yDir = atof(charBuf);
-
+    yBuffer[bufferVal] = atof(charBuf);
+    bufferVal = bufferVal + 1;
+  }
+  else 
+  {
+    bufferVal = 0;
+    xDir = (xBuffer[0] + xBuffer[1] + xBuffer[2] + xBuffer[3] + xBuffer[4])/5;
+    yDir = (yBuffer[0] + yBuffer[1] + yBuffer[2] + yBuffer[3] + yBuffer[4])/5;
+  }
     if (xDir <= 1023 && yDir <= 1023)
     {
       xDir = map(xDir, 0, 1023, -255, 255);
