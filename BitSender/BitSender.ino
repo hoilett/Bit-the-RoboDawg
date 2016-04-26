@@ -37,5 +37,5 @@ void loop()
   //msg[0] = 2;
   radio.write(msg,1);
 
-  delay(100);
+  delay(5);
 }
