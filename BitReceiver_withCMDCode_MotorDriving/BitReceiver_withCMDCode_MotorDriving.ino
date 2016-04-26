@@ -33,6 +33,12 @@ void setup(void)
   radio.begin();
   radio.openReadingPipe(1,pipe);
   radio.startListening();
+      Serial.println("STOP");
+      analogWrite(l2_motor, 0);
+      analogWrite(l1_motor, 0);
+      
+      analogWrite(r1_motor, 0);
+      analogWrite(r2_motor, 0);
 }
 
 void loop(void)
@@ -132,7 +138,7 @@ void loop(void)
       analogWrite(r2_motor, abs(xDir));
       analogWrite(r1_motor, abs(0));
     }
-
+    
     //TURN RIGHT
     if(yDir > zeroLine){
       Serial.println("RIGHT");
@@ -150,11 +156,11 @@ void loop(void)
       analogWrite(l1_motor, abs(0));
       
       analogWrite(r2_motor, 0);
-      analogWrite(r1_motor, yDir);
+      analogWrite(r1_motor, abs(yDir));
     }
 
     //STOP
-    else{
+    else if (abs(yDir) < abs(zeroLine) && abs(xDir) < abs(zeroLine) ){
       Serial.println("STOP");
       analogWrite(l2_motor, 0);
       analogWrite(l1_motor, 0);
