@@ -1,3 +1,17 @@
+/*
+ * Shadman Jubaer and Orlando Hoilett
+ * 
+ * Project Title: Bit the RoboCar
+ * 
+ * Description
+ * We created a remote controlled car using two nRF24L01 RF
+ * transceiver modules. An Arduino reads the directeion values
+ * from a joystick and sends the instructions to another Arduino
+ * to control a robot chassis.
+ * 
+ */
+
+
 #include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>
