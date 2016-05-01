@@ -1658,7 +1658,7 @@ Please make sure your boards conform to these design rules.</description>
 <element name="C28" library="resistor" package="C0402" value="" x="24.1554" y="11.1506" rot="MR0"/>
 <element name="C29" library="resistor" package="C0402" value="100n" x="27.5082" y="18.4404" rot="R180"/>
 <element name="C30" library="resistor" package="C0402" value="100n" x="5.8166" y="11.1252" rot="R180"/>
-<element name="C31" library="resistor" package="C0402" value="100n" x="1.3208" y="27.9654" rot="R90"/>
+<element name="C31" library="resistor" package="C0402" value="100n" x="16.0782" y="24.0284" rot="MR0"/>
 <element name="C32" library="resistor" package="C0402" value="100n" x="10.4394" y="4.318" rot="MR180"/>
 <element name="IC1" library="analog-devices" package="SOT23-5" value="AD8603UJ" x="3.2512" y="2.9972" rot="R180">
 <attribute name="MF" value="ALTERA CORPORATION" x="3.2512" y="2.9972" size="1.778" layer="27" rot="R180" display="off"/>
@@ -1791,10 +1791,14 @@ Please make sure your boards conform to these design rules.</description>
 <via x="6.4008" y="16.5608" extent="1-16" drill="0.381" shape="octagon"/>
 <wire x1="4.7902" y1="17.0942" x2="5.8674" y2="17.0942" width="0.2032" layer="1"/>
 <wire x1="5.8674" y1="17.0942" x2="6.4008" y2="16.5608" width="0.2032" layer="1"/>
-<wire x1="14.478" y1="25.6136" x2="12.365" y2="26.67" width="0" layer="19" extent="1-16"/>
-<wire x1="4.43" y1="25.3746" x2="4.2164" y2="25.7706" width="0" layer="19" extent="1-16"/>
-<wire x1="4.7348" y1="27.5336" x2="4.2164" y2="25.7706" width="0" layer="19" extent="1-16"/>
-<wire x1="1.3208" y1="27.3154" x2="1.9812" y2="24.7396" width="0" layer="19" extent="1-1"/>
+<via x="10.7188" y="26.5176" extent="1-16" drill="0.381" shape="octagon"/>
+<wire x1="12.365" y1="26.67" x2="10.8712" y2="26.67" width="0.2032" layer="1"/>
+<wire x1="10.8712" y1="26.67" x2="10.7188" y2="26.5176" width="0.2032" layer="1"/>
+<via x="3.4544" y="27.5336" extent="1-16" drill="0.381" shape="octagon"/>
+<wire x1="4.7348" y1="27.5336" x2="3.4544" y2="27.5336" width="0.2032" layer="1"/>
+<via x="2.8448" y="25.8572" extent="1-16" drill="0.381" shape="octagon"/>
+<wire x1="4.43" y1="25.3746" x2="3.3274" y2="25.3746" width="0.2032" layer="1"/>
+<wire x1="3.3274" y1="25.3746" x2="2.8448" y2="25.8572" width="0.2032" layer="1"/>
 </signal>
 <signal name="5V">
 <contactref element="JP2" pad="8"/>
@@ -1869,8 +1873,13 @@ Please make sure your boards conform to these design rules.</description>
 <via x="12.6492" y="18.5928" extent="1-16" drill="0.381" shape="octagon"/>
 <wire x1="12.6848" y1="16.9972" x2="12.6848" y2="18.5572" width="0.2032" layer="16"/>
 <wire x1="12.6848" y1="18.5572" x2="12.6492" y2="18.5928" width="0.2032" layer="16"/>
-<wire x1="18.115" y1="26.67" x2="13.2588" y2="25.5882" width="0" layer="19" extent="1-16"/>
-<wire x1="1.6868" y1="7.1374" x2="1.905" y2="7.381" width="0" layer="19" extent="1-16"/>
+<via x="13.97" y="24.2824" extent="1-16" drill="0.381" shape="octagon"/>
+<wire x1="13.2588" y1="25.5882" x2="13.2588" y2="24.9936" width="0.2032" layer="16"/>
+<wire x1="13.2588" y1="24.9936" x2="13.97" y2="24.2824" width="0.2032" layer="16"/>
+<wire x1="14.0208" y1="24.3332" x2="13.97" y2="24.2824" width="0.2032" layer="16"/>
+<wire x1="15.4282" y1="24.0284" x2="14.224" y2="24.0284" width="0.2032" layer="16"/>
+<wire x1="14.224" y1="24.0284" x2="13.97" y2="24.2824" width="0.2032" layer="16"/>
+<wire x1="1.905" y1="7.381" x2="1.6868" y2="7.1374" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="N$1">
 <contactref element="N-AMP" pad="2"/>
@@ -2089,8 +2098,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="5.9874" y1="25.1172" x2="5.9874" y2="25.5454" width="0.2032" layer="1"/>
 <wire x1="5.9874" y1="25.5454" x2="6.7564" y2="26.3144" width="0.2032" layer="1"/>
 <via x="6.7564" y="26.3144" extent="1-16" drill="0.381" shape="octagon"/>
-<wire x1="6.7564" y1="26.3144" x2="9.8044" y2="26.3144" width="0.2032" layer="16"/>
-<wire x1="9.8044" y1="26.3144" x2="14.4272" y2="30.9372" width="0.2032" layer="16"/>
+<wire x1="6.7564" y1="26.3144" x2="14.4272" y2="30.9372" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$19">
 <contactref element="E-AMP" pad="2"/>

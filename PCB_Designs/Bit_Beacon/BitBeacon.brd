@@ -132,6 +132,7 @@
 <wire x1="0" y1="33.02" x2="0" y2="0" width="0.254" layer="20"/>
 <dimension x1="0" y1="0" x2="30.48" y2="0" x3="15.24" y3="-3.1496" textsize="1.778" layer="20" unit="mil"/>
 <dimension x1="0" y1="33.02" x2="0" y2="0" x3="-2.6416" y3="16.51" textsize="1.778" layer="20" unit="mil"/>
+<text x="7.8232" y="20.066" size="1.778" layer="20">osh</text>
 </plain>
 <libraries>
 <library name="SparkFun-Connectors">
