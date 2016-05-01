@@ -1,15 +1,12 @@
-#Ignoring Gerber files
-PCB_Designs/MotorDriver/MotoDriver.TXT
-PCB_Designs/MotorDriver/MotoDriver.dri
-PCB_Designs/MotorDriver/MotoDriver.GBL
-PCB_Designs/MotorDriver/MotoDriver.GBO
-PCB_Designs/MotorDriver/MotoDriver.GBS
-PCB_Designs/MotorDriver/MotoDriver.GML
-PCB_Designs/MotorDriver/MotoDriver.gpi
-PCB_Designs/MotorDriver/MotoDriver.GTL
-PCB_Designs/MotorDriver/MotoDriver.GTO
-PCB_Designs/MotorDriver/MotoDriver.GTP
-PCB_Designs/MotorDriver/MotoDriver.GTS
+#Ignoring all files in PCB_Designs directory except for .sch and .brd files
+PCB_Designs/MotorDriver/*
+!PCB_Designs/MotorDriver/MotoDriver.sch
+!PCB_Designs/MotorDriver/MotoDriver.brd
 
-# Ignore Mac DS_Store files
+PCB_Designs/BitBeacon/*
+!PCB_Designs/BitBeacon/BitBeacon.sch
+!PCB_Designs/BitBeacon/BitBeacon.brd
+
+
+# Ignore Mac DS_Store files in all directories
 .DS_Store
