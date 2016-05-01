@@ -23,6 +23,11 @@ int w_base = 0;
 
 uint8_t interrupt = 2;
 
+int l1_motor = 10;
+int l2_motor = 9;
+int r1_motor = 6;
+int r2_motor = 5; 
+
 void setup()
 {
   //analogReference(EXTERNAL);
@@ -86,6 +91,7 @@ void loop()
   readSensors();
   printSensors();
   determineDirection();
+  drive(sensorVals[n], sensorVals[s], sensorVals[e], sensorVals[w]);
   Serial.println();
   delay(500);
 }
@@ -182,5 +188,17 @@ void determineDirection()
   {
     Serial.println("got no where");
   }
+}
+
+
+void drive(int nx, int sx, int ex, int wx)
+{
+  //north
+  if (nx <= 50) nx = 0;
+  nx = map(nx, 0, 600, 0, 255);
+  analogWrite(l1_motor, nx);
+  analogWrite(l2_motor, 0);
+  analogWrite(r1_motor, nx);
+  analogWrite(r2_motor, 0);
 }
 
