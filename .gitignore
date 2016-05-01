@@ -10,3 +10,6 @@ PCB_Designs/MotorDriver/MotoDriver.GTL
 PCB_Designs/MotorDriver/MotoDriver.GTO
 PCB_Designs/MotorDriver/MotoDriver.GTP
 PCB_Designs/MotorDriver/MotoDriver.GTS
+
+# Ignore Mac DS_Store files
+.DS_Store
