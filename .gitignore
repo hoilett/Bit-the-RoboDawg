@@ -7,6 +7,8 @@ PCB_Designs/MotorDriver/*
 PCB_Designs/Bit_Beacon/*
 !PCB_Designs/Bit_Beacon/BitBeacon.sch
 !PCB_Designs/Bit_Beacon/BitBeacon.brd
+#Including Gerber files used to order PCB
+!PCB_Designs/Bit_Beacon/BitBeacon.zip
 
 
 # Ignore Mac DS_Store files in all directories
