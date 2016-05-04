@@ -3,7 +3,9 @@
 PCB_Designs/*
 !*.sch
 !*.brd
-
+!BitBeacon_Emitter
+!Bit_Beacon
+!MotorDriver
 
 # Ignore Mac DS_Store files in all directories
 .DS_Store
