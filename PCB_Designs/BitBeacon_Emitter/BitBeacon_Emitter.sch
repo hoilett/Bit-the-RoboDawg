@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.4.0">
+<eagle version="7.3.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -10498,15 +10498,15 @@ DIN A4, landscape with location and doc. field</description>
 <parts>
 <part name="FGEN" library="analog-devices" deviceset="AD8607" device="RM" value=""/>
 <part name="VREF" library="analog-devices" deviceset="AD8603" device="UJ" value=""/>
-<part name="R1" library="resistor" deviceset="R-US_" device="R0402"/>
-<part name="R2" library="resistor" deviceset="R-US_" device="R0402"/>
-<part name="R3" library="resistor" deviceset="R-US_" device="R0402"/>
-<part name="C1" library="resistor" deviceset="C-EU" device="C0402"/>
-<part name="C2" library="resistor" deviceset="C-EU" device="C0402"/>
-<part name="C3" library="resistor" deviceset="C-EU" device="C0402"/>
+<part name="R1" library="resistor" deviceset="R-US_" device="R0402" value="22k"/>
+<part name="R2" library="resistor" deviceset="R-US_" device="R0402" value="22k"/>
+<part name="R3" library="resistor" deviceset="R-US_" device="R0402" value="22k"/>
+<part name="C1" library="resistor" deviceset="C-EU" device="C0402" value="1n"/>
+<part name="C2" library="resistor" deviceset="C-EU" device="C0402" value="1n"/>
+<part name="C3" library="resistor" deviceset="C-EU" device="C0402" value="1n"/>
 <part name="GND1" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R4" library="resistor" deviceset="R-US_" device="R0402" value="5.1k"/>
-<part name="R5" library="resistor" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="R4" library="resistor" deviceset="R-US_" device="R0402" value="22k"/>
+<part name="R5" library="resistor" deviceset="R-US_" device="R0402" value="22k"/>
 <part name="GND2" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND3" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="SUPPLY1" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
@@ -10516,7 +10516,7 @@ DIN A4, landscape with location and doc. field</description>
 <part name="SUPPLY3" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="C5" library="resistor" deviceset="C-EU" device="C0402" value="100n"/>
 <part name="GND5" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R6" library="resistor" deviceset="R-US_" device="R0402"/>
+<part name="R6" library="resistor" deviceset="R-US_" device="R0402" value="100-400"/>
 <part name="SUPPLY4" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="LED1" library="Orlando" deviceset="LED" device=""/>
 <part name="LED2" library="Orlando" deviceset="LED" device=""/>
@@ -10525,10 +10525,10 @@ DIN A4, landscape with location and doc. field</description>
 <part name="JP1" library="SparkFun-Connectors" deviceset="M01" device="NOSILK-KIT" value="M01NOSILK-KIT"/>
 <part name="JP2" library="SparkFun-Connectors" deviceset="M01" device="NOSILK-KIT" value="M01NOSILK-KIT"/>
 <part name="LOGO1" library="SparkFun-Aesthetics" deviceset="OSHW-LOGO" device="S"/>
-<part name="U$1" library="OrlandoRonMod" deviceset="BATT-CONNECT" device=""/>
+<part name="BATTERY" library="OrlandoRonMod" deviceset="BATT-CONNECT" device=""/>
 <part name="SUPPLY5" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="GND7" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="C6" library="resistor" deviceset="C-EU" device="C0402"/>
+<part name="C6" library="resistor" deviceset="C-EU" device="C0402" value="100n"/>
 <part name="Q2" library="SparkFun-DiscreteSemi" deviceset="TRANSISTOR_NPN" device="2N3904"/>
 <part name="FRAME1" library="frames" deviceset="A4L-LOC" device=""/>
 </parts>
@@ -10576,8 +10576,8 @@ Jean-Claude Wippler. "Generating a sine wave." &lt;http://jeelabs.org/2012/05/18
 <instance part="JP1" gate="G$1" x="58.42" y="73.66" rot="R270"/>
 <instance part="JP2" gate="G$1" x="76.2" y="48.26" rot="R270"/>
 <instance part="LOGO1" gate="G$1" x="5.08" y="111.76"/>
-<instance part="U$1" gate="G$2" x="38.1" y="111.76"/>
-<instance part="U$1" gate="G$1" x="43.18" y="111.76"/>
+<instance part="BATTERY" gate="G$2" x="38.1" y="111.76"/>
+<instance part="BATTERY" gate="G$1" x="43.18" y="111.76"/>
 <instance part="SUPPLY5" gate="G$1" x="38.1" y="127"/>
 <instance part="GND7" gate="1" x="53.34" y="111.76"/>
 <instance part="C6" gate="G$1" x="43.18" y="121.92" rot="R90"/>
@@ -10696,7 +10696,7 @@ Jean-Claude Wippler. "Generating a sine wave." &lt;http://jeelabs.org/2012/05/18
 <pinref part="Q2" gate="G$1" pin="E"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="TP"/>
+<pinref part="BATTERY" gate="G$1" pin="TP"/>
 <wire x1="43.18" y1="114.3" x2="43.18" y2="116.84" width="0.1524" layer="91"/>
 <wire x1="43.18" y1="116.84" x2="50.8" y2="116.84" width="0.1524" layer="91"/>
 <wire x1="50.8" y1="116.84" x2="53.34" y2="116.84" width="0.1524" layer="91"/>
@@ -10779,7 +10779,7 @@ Jean-Claude Wippler. "Generating a sine wave." &lt;http://jeelabs.org/2012/05/18
 <wire x1="91.44" y1="114.3" x2="91.44" y2="106.68" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$2" pin="TP"/>
+<pinref part="BATTERY" gate="G$2" pin="TP"/>
 <wire x1="38.1" y1="114.3" x2="38.1" y2="121.92" width="0.1524" layer="91"/>
 <pinref part="SUPPLY5" gate="G$1" pin="5V"/>
 <pinref part="C6" gate="G$1" pin="1"/>

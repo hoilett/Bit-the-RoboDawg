@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.4.0">
+<eagle version="7.3.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -1620,35 +1620,35 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="13.5488" y="11.0546" size="0.6604" layer="25" rot="R180"/>
 <attribute name="VALUE" x="16.033" y="6.8728" size="1.27" layer="27" rot="R90"/>
 </element>
-<element name="R1" library="resistor" package="R0402" value="" x="17.537" y="12.2072" smashed="yes">
+<element name="R1" library="resistor" package="R0402" value="22k" x="17.537" y="12.2072" smashed="yes">
 <attribute name="NAME" x="19.2388" y="11.877" size="0.6604" layer="25"/>
 <attribute name="VALUE" x="16.902" y="10.3022" size="1.27" layer="27"/>
 </element>
-<element name="R2" library="resistor" package="R0402" value="" x="13.2444" y="11.8516" smashed="yes" rot="R180">
+<element name="R2" library="resistor" package="R0402" value="22k" x="13.2444" y="11.8516" smashed="yes" rot="R180">
 <attribute name="NAME" x="11.695" y="12.0294" size="0.6604" layer="25" rot="R180"/>
 <attribute name="VALUE" x="13.8794" y="13.7566" size="1.27" layer="27" rot="R180"/>
 </element>
-<element name="R3" library="resistor" package="R0402" value="" x="10.171" y="16.9062" smashed="yes" rot="R180">
+<element name="R3" library="resistor" package="R0402" value="22k" x="10.171" y="16.9062" smashed="yes" rot="R180">
 <attribute name="NAME" x="8.52" y="17.2364" size="0.6604" layer="25" rot="R180"/>
 <attribute name="VALUE" x="10.806" y="18.8112" size="1.27" layer="27" rot="R180"/>
 </element>
-<element name="C1" library="resistor" package="C0402" value="" x="8.6868" y="14.9074" smashed="yes" rot="R90">
+<element name="C1" library="resistor" package="C0402" value="1n" x="8.6868" y="14.9074" smashed="yes" rot="R90">
 <attribute name="NAME" x="9.1972" y="13.4366" size="0.6604" layer="25" rot="R180"/>
 <attribute name="VALUE" x="10.5918" y="14.2724" size="1.27" layer="27" rot="R90"/>
 </element>
-<element name="C2" library="resistor" package="C0402" value="" x="17.1052" y="14.417" smashed="yes" rot="R270">
+<element name="C2" library="resistor" package="C0402" value="1n" x="17.1052" y="14.417" smashed="yes" rot="R270">
 <attribute name="NAME" x="15.7328" y="15.8098" size="0.6604" layer="25"/>
 <attribute name="VALUE" x="15.2002" y="15.052" size="1.27" layer="27" rot="R270"/>
 </element>
-<element name="C3" library="resistor" package="C0402" value="" x="12.9142" y="16.9062" smashed="yes" rot="R180">
+<element name="C3" library="resistor" package="C0402" value="1n" x="12.9142" y="16.9062" smashed="yes" rot="R180">
 <attribute name="NAME" x="16.4448" y="17.4904" size="0.6604" layer="25" rot="R180"/>
 <attribute name="VALUE" x="13.5492" y="18.8112" size="1.27" layer="27" rot="R180"/>
 </element>
-<element name="R4" library="resistor" package="R0402" value="5.1k" x="17.5392" y="9.088" smashed="yes">
+<element name="R4" library="resistor" package="R0402" value="22k" x="17.5392" y="9.088" smashed="yes">
 <attribute name="NAME" x="15.177" y="8.8594" size="0.6604" layer="25"/>
 <attribute name="VALUE" x="18.2758" y="7.5386" size="0.6604" layer="27"/>
 </element>
-<element name="R5" library="resistor" package="R0402" value="10k" x="17.5332" y="10.3638" smashed="yes">
+<element name="R5" library="resistor" package="R0402" value="22k" x="17.5332" y="10.3638" smashed="yes">
 <attribute name="NAME" x="15.0694" y="10.3384" size="0.6604" layer="25"/>
 <attribute name="VALUE" x="16.8982" y="8.4588" size="1.27" layer="27"/>
 </element>
@@ -1660,7 +1660,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="11.6218" y="7.0936" size="0.6604" layer="25" rot="R180"/>
 <attribute name="VALUE" x="11.7164" y="7.1234" size="0.6604" layer="27" rot="R90"/>
 </element>
-<element name="R6" library="resistor" package="R0402" value="" x="7.255" y="13.5952" smashed="yes" rot="R90">
+<element name="R6" library="resistor" package="R0402" value="100-400" x="7.255" y="13.5952" smashed="yes" rot="R90">
 <attribute name="NAME" x="6.366" y="12.4014" size="0.6604" layer="25" rot="R90"/>
 <attribute name="VALUE" x="9.16" y="12.9602" size="1.27" layer="27" rot="R90"/>
 </element>
@@ -1670,8 +1670,8 @@ Please make sure your boards conform to these design rules.</description>
 <element name="JP1" library="SparkFun-Connectors" package="1X01NS-KIT" value="M01NOSILK-KIT" x="5.2324" y="14.2748" smashed="yes"/>
 <element name="JP2" library="SparkFun-Connectors" package="1X01NS-KIT" value="M01NOSILK-KIT" x="19.2532" y="14.5288" smashed="yes"/>
 <element name="LOGO1" library="SparkFun-Aesthetics" package="OSHW-LOGO-S" value="OSHW-LOGOS" x="16.002" y="5.2324" smashed="yes"/>
-<element name="U$1" library="OrlandoRonMod" package="HOLE" value="BATT-CONNECT" x="20.4216" y="8.7884" rot="R270"/>
-<element name="C6" library="resistor" package="C0402" value="" x="17.8308" y="7.9248" smashed="yes" rot="R180">
+<element name="BATTERY" library="OrlandoRonMod" package="HOLE" value="BATT-CONNECT" x="20.4216" y="8.7884" rot="R270"/>
+<element name="C6" library="resistor" package="C0402" value="100n" x="17.8308" y="7.9248" smashed="yes" rot="R180">
 <attribute name="NAME" x="16.5862" y="7.5946" size="0.5842" layer="25" rot="R180"/>
 <attribute name="VALUE" x="18.4658" y="9.8298" size="1.27" layer="27" rot="R180"/>
 </element>
@@ -1790,7 +1790,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="18.7204" y1="16.83" x2="19.6952" y2="16.83" width="0.2032" layer="1"/>
 <wire x1="19.6952" y1="16.83" x2="19.7612" y2="16.8148" width="0.2032" layer="1"/>
 <via x="19.2024" y="11.0236" extent="1-16" drill="0.381" shape="octagon"/>
-<contactref element="U$1" pad="P$1"/>
+<contactref element="BATTERY" pad="P$1"/>
 <wire x1="18.1832" y1="10.3638" x2="18.1832" y2="10.614" width="0.254" layer="1"/>
 <wire x1="18.1832" y1="10.614" x2="18.5928" y2="11.0236" width="0.254" layer="1"/>
 <wire x1="18.5928" y1="11.0236" x2="19.2024" y2="11.0236" width="0.254" layer="1"/>
@@ -1844,7 +1844,7 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="LED2" pad="A"/>
 <contactref element="LED3" pad="A"/>
 <contactref element="LED1" pad="A"/>
-<contactref element="U$1" pad="P$2"/>
+<contactref element="BATTERY" pad="P$2"/>
 <contactref element="C6" pad="1"/>
 </signal>
 <signal name="N$8">
