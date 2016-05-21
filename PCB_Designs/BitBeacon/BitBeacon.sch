@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.3.0">
+<eagle version="7.4.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -6040,10 +6040,10 @@ for trimmer refence see : &lt;u&gt;www.electrospec-inc.com/cross_references/trim
 <description>&lt;b&gt;RESISTOR&lt;/b&gt;</description>
 <wire x1="-0.245" y1="0.224" x2="0.245" y2="0.224" width="0.1524" layer="51"/>
 <wire x1="0.245" y1="-0.224" x2="-0.245" y2="-0.224" width="0.1524" layer="51"/>
-<wire x1="-1.1174" y1="0.483" x2="1.1174" y2="0.483" width="0.0508" layer="39"/>
-<wire x1="1.1174" y1="0.483" x2="1.1174" y2="-0.483" width="0.0508" layer="39"/>
-<wire x1="1.1174" y1="-0.483" x2="-1.1174" y2="-0.483" width="0.0508" layer="39"/>
-<wire x1="-1.1174" y1="-0.483" x2="-1.1174" y2="0.483" width="0.0508" layer="39"/>
+<wire x1="-1.0968" y1="0.483" x2="1.0968" y2="0.483" width="0.0508" layer="39"/>
+<wire x1="1.0968" y1="0.483" x2="1.0968" y2="-0.483" width="0.0508" layer="39"/>
+<wire x1="1.0968" y1="-0.483" x2="-1.0968" y2="-0.483" width="0.0508" layer="39"/>
+<wire x1="-1.0968" y1="-0.483" x2="-1.0968" y2="0.483" width="0.0508" layer="39"/>
 <smd name="1" x="-0.65" y="0" dx="0.7" dy="0.9" layer="1"/>
 <smd name="2" x="0.65" y="0" dx="0.7" dy="0.9" layer="1"/>
 <text x="-0.635" y="0.635" size="1.27" layer="25">&gt;NAME</text>
@@ -11100,7 +11100,7 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <part name="GND25" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="SUPPLY17" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="N-AMP" library="analog-devices" deviceset="AD8609" device="RU" value="AD8608"/>
-<part name="R1" library="resistor" deviceset="R-US_" device="R0402" value="1M"/>
+<part name="R1" library="resistor" deviceset="R-US_" device="R0402" value="1k"/>
 <part name="C1" library="resistor" deviceset="C-EU" device="C0402" value="22p"/>
 <part name="C2" library="resistor" deviceset="C-EU" device="C0402"/>
 <part name="R2" library="resistor" deviceset="R-US_" device="R0402"/>
@@ -11116,7 +11116,7 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <part name="C7" library="resistor" deviceset="C-EU" device="C0402" value="22p"/>
 <part name="GND4" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="S-AMP" library="analog-devices" deviceset="AD8609" device="RU"/>
-<part name="R9" library="resistor" deviceset="R-US_" device="R0402" value="1M"/>
+<part name="R9" library="resistor" deviceset="R-US_" device="R0402" value="1k"/>
 <part name="C8" library="resistor" deviceset="C-EU" device="C0402" value="22p"/>
 <part name="C9" library="resistor" deviceset="C-EU" device="C0402"/>
 <part name="R10" library="resistor" deviceset="R-US_" device="R0402"/>
@@ -11132,7 +11132,7 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <part name="C14" library="resistor" deviceset="C-EU" device="C0402" value="22p"/>
 <part name="GND8" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="E-AMP" library="analog-devices" deviceset="AD8609" device="RU"/>
-<part name="R17" library="resistor" deviceset="R-US_" device="R0402" value="1M"/>
+<part name="R17" library="resistor" deviceset="R-US_" device="R0402" value="1k"/>
 <part name="C15" library="resistor" deviceset="C-EU" device="C0402" value="22p"/>
 <part name="C16" library="resistor" deviceset="C-EU" device="C0402"/>
 <part name="R18" library="resistor" deviceset="R-US_" device="R0402"/>
@@ -11148,7 +11148,7 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <part name="C21" library="resistor" deviceset="C-EU" device="C0402" value="22p"/>
 <part name="GND12" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="W-AMP" library="analog-devices" deviceset="AD8609" device="RU"/>
-<part name="R25" library="resistor" deviceset="R-US_" device="R0402" value="1M"/>
+<part name="R25" library="resistor" deviceset="R-US_" device="R0402" value="1k"/>
 <part name="C22" library="resistor" deviceset="C-EU" device="C0402" value="22p"/>
 <part name="C23" library="resistor" deviceset="C-EU" device="C0402"/>
 <part name="R26" library="resistor" deviceset="R-US_" device="R0402"/>
@@ -11232,6 +11232,7 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <sheets>
 <sheet>
 <plain>
+<text x="-165.1" y="-30.48" size="5.08" layer="91">TODO: labels on headers</text>
 </plain>
 <instances>
 <instance part="JP2" gate="G$1" x="-127" y="10.16"/>

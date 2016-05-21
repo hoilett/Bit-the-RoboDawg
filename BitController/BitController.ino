@@ -1,27 +1,28 @@
 const uint8_t north = A0;
-const uint8_t east = A1;
-const uint8_t south = A2;
-const uint8_t west = A3;
+const uint8_t west = A1;
+const uint8_t east = A2;
+const uint8_t south = A3;
 
 int nVal = 0;
+int wVal = 0;
 int eVal = 0;
 int sVal = 0;
-int wVal = 0;
 
 int n = 0;
-int e = 1;
-int s = 2;
-int w = 3;
+int w = 1;
+int e = 2;
+int s = 3;
+
 const int arr_size = 4;
 
 int sensorVals[arr_size] = {0};
 
 int n_base = 0;
+int w_base = 0;
 int e_base = 0;
 int s_base = 0;
-int w_base = 0;
 
-uint8_t interrupt = 2;
+//uint8_t interrupt = 2;
 
 int l1_motor = 10;
 int l2_motor = 9;
@@ -36,34 +37,38 @@ void setup()
   delay(1000);
 
   n_base = analogRead(north) - 50;
-  e_base = analogRead(east) - 50;
-  s_base = analogRead(south) - 50;
   w_base = analogRead(west) - 50;
-
+  e_base = analogRead(east) - 50;
+  //s_base = analogRead(south) - 50;
+  
   Serial.println(n_base);
-  Serial.println(e_base);
-  Serial.println(s_base);
   Serial.println(w_base);
+  Serial.println(e_base);
+  //Serial.println(s_base);
+  
 }
 
 
 void readSensors()
 {
   int north_intensity = analogRead(north);
-  int east_intensity = analogRead(east);
-  int south_intensity = analogRead(south);
   int west_intensity = analogRead(west);
+  int east_intensity = analogRead(east);
+  //int south_intensity = analogRead(south);
+  
   
   nVal = north_intensity - n_base;
-  eVal = east_intensity - e_base;
-  sVal = south_intensity - s_base;
   wVal = west_intensity - w_base;
+  eVal = east_intensity - e_base;
+  //sVal = south_intensity - s_base;
+  
 
   //sensorVals[0] = {nVal, eVal, sVal, wVal};
   sensorVals[n] = nVal;
-  sensorVals[e] = eVal;
-  sensorVals[s] = sVal;
   sensorVals[w] = wVal;
+  sensorVals[e] = eVal;
+  //sensorVals[s] = sVal;
+  
 }
 
 
@@ -72,17 +77,20 @@ void printSensors()
   Serial.print("north: ");
   Serial.print(nVal);
   Serial.print(", ");
+
+  Serial.print("west: ");
+  Serial.print(wVal);
+  Serial.print(", ");
   
   Serial.print("east: ");
-  Serial.print(eVal);
-  Serial.print(", ");
+  Serial.println(eVal);
+  //Serial.print(", ");
   
-  Serial.print("south: ");
-  Serial.print(sVal);
-  Serial.print(", ");
+//  Serial.print("south: ");
+//  Serial.print(sVal);
+//  Serial.print(", ");
   
-  Serial.print("west: ");
-  Serial.println(wVal);
+
 }
 
 
@@ -90,9 +98,9 @@ void loop()
 {
   readSensors();
   printSensors();
-  determineDirection();
-  drive(sensorVals[n], sensorVals[s], sensorVals[e], sensorVals[w]);
-  Serial.println();
+  //determineDirection();
+  //drive(sensorVals[n], sensorVals[s], sensorVals[e], sensorVals[w]);
+  //Serial.println();
   delay(500);
 }
 
