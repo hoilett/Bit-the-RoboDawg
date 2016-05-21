@@ -1,3 +1,21 @@
+//LCD
+#include <Wire.h>
+#include <LCD.h>
+#include <LiquidCrystal_I2C.h>
+
+#define I2C_ADDR  0x3F  // Define I2C Address where the PCF8574A is
+#define BACKLIGHT_PIN   3
+#define En_pin  2
+#define Rw_pin  1
+#define Rs_pin  0
+#define D4_pin  4
+#define D5_pin  5
+#define D6_pin  6
+#define D7_pin  7
+
+LiquidCrystal_I2C     lcd(I2C_ADDR,En_pin,Rw_pin,Rs_pin,D4_pin,D5_pin,D6_pin,D7_pin);
+
+
 const uint8_t north = A0;
 const uint8_t west = A1;
 const uint8_t east = A2;
@@ -22,8 +40,8 @@ int w_base = 0;
 int e_base = 0;
 int s_base = 0;
 
-//uint8_t interrupt = 2;
 
+//motor control
 int l1_motor = 10;
 int l2_motor = 9;
 int r1_motor = 6;
@@ -31,8 +49,12 @@ int r2_motor = 5;
 
 void setup()
 {
-  //analogReference(EXTERNAL);
   Serial.begin(115200);
+
+  lcd.begin (20,4);
+  lcd.setBacklightPin(BACKLIGHT_PIN,POSITIVE);
+  lcd.setBacklight(HIGH);
+  lcd.home ();
 
   delay(1000);
 
@@ -41,10 +63,10 @@ void setup()
   e_base = analogRead(east) - 50;
   //s_base = analogRead(south) - 50;
   
-  Serial.println(n_base);
-  Serial.println(w_base);
-  Serial.println(e_base);
-  //Serial.println(s_base);
+  lcd.println(n_base);
+  lcd.println(w_base);
+  lcd.println(e_base);
+  //lcd.println(s_base);
   
 }
 
@@ -74,21 +96,21 @@ void readSensors()
 
 void printSensors()
 {
-  Serial.print("north: ");
-  Serial.print(nVal);
-  Serial.print(", ");
+  lcd.print("north: ");
+  lcd.print(nVal);
+  lcd.print(", ");
 
-  Serial.print("west: ");
-  Serial.print(wVal);
-  Serial.print(", ");
+  lcd.print("west: ");
+  lcd.print(wVal);
+  lcd.print(", ");
   
-  Serial.print("east: ");
-  Serial.println(eVal);
-  //Serial.print(", ");
+  lcd.print("east: ");
+  lcd.println(eVal);
+  //lcd.print(", ");
   
-//  Serial.print("south: ");
-//  Serial.print(sVal);
-//  Serial.print(", ");
+//  lcd.print("south: ");
+//  lcd.print(sVal);
+//  lcd.print(", ");
   
 
 }
@@ -100,7 +122,7 @@ void loop()
   printSensors();
   //determineDirection();
   //drive(sensorVals[n], sensorVals[s], sensorVals[e], sensorVals[w]);
-  //Serial.println();
+  //lcd.println();
   delay(500);
 }
 
@@ -116,19 +138,19 @@ void determineDirection()
   {
     if (abs(sensorVals[w]-sensorVals[e]) < 50)
     {
-      Serial.println("head north");
+      lcd.println("head north");
     }
     else if (sensorVals[w]*1.2 >= sensorVals[e]*1.2)
     {
-      Serial.println("head north-west");
+      lcd.println("head north-west");
     }
     else if (sensorVals[e]*1.2 >= sensorVals[w]*1.2)
     {
-      Serial.println("head north-east");
+      lcd.println("head north-east");
     }
     else
     {
-      Serial.println("no direction or continue moving along last direction");
+      lcd.println("no direction or continue moving along last direction");
       //some error
     }
   }
@@ -136,19 +158,19 @@ void determineDirection()
   {
     if (abs(sensorVals[n]-sensorVals[s]) < 50)
     {
-      Serial.println("head east");
+      lcd.println("head east");
     }
     else if (sensorVals[n]*1.2 >= sensorVals[s]*1.2)
     {
-      Serial.println("head east-north-east");
+      lcd.println("head east-north-east");
     }
     else if (sensorVals[s]*1.2 >= sensorVals[n]*1.2)
     {
-      Serial.println("head east-south-east");
+      lcd.println("head east-south-east");
     }
     else
     {
-      Serial.println("no direction or continue moving along last direction");
+      lcd.println("no direction or continue moving along last direction");
       //some error
     }
   }
@@ -156,19 +178,19 @@ void determineDirection()
   {
     if (abs(sensorVals[n]-sensorVals[s]) < 50)
     {
-      Serial.println("head west");
+      lcd.println("head west");
     }
     else if (sensorVals[n]*1.2 >= sensorVals[s]*1.2)
     {
-      Serial.println("head west-north-west");
+      lcd.println("head west-north-west");
     }
     else if (sensorVals[s]*1.2 >= sensorVals[n]*1.2)
     {
-      Serial.println("head west-south-west");
+      lcd.println("head west-south-west");
     }
     else
     {
-      Serial.println("no direction or continue moving along last direction");
+      lcd.println("no direction or continue moving along last direction");
       //some error
     }
   }
@@ -176,25 +198,25 @@ void determineDirection()
   {
     if (abs(sensorVals[w]-sensorVals[e]) < 50)
     {
-      Serial.println("head south");
+      lcd.println("head south");
     }
     else if (sensorVals[w]*1.2 >= sensorVals[e]*1.2)
     {
-      Serial.println("head south-west");
+      lcd.println("head south-west");
     }
     else if (sensorVals[e]*1.2 >= sensorVals[w]*1.2)
     {
-      Serial.println("head south-east");
+      lcd.println("head south-east");
     }
     else
     {
-      Serial.println("no direction or continue moving along last direction");
+      lcd.println("no direction or continue moving along last direction");
       //some error
     }
   }
   else
   {
-    Serial.println("got no where");
+    lcd.println("got no where");
   }
 }
 
