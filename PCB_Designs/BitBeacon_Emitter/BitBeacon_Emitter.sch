@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.3.0">
+<eagle version="7.4.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -10516,7 +10516,7 @@ DIN A4, landscape with location and doc. field</description>
 <part name="SUPPLY3" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="C5" library="resistor" deviceset="C-EU" device="C0402" value="100n"/>
 <part name="GND5" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R6" library="resistor" deviceset="R-US_" device="R0402" value="100-400"/>
+<part name="R6" library="resistor" deviceset="R-US_" device="R0402" value="10k-50k"/>
 <part name="SUPPLY4" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="LED1" library="Orlando" deviceset="LED" device=""/>
 <part name="LED2" library="Orlando" deviceset="LED" device=""/>
