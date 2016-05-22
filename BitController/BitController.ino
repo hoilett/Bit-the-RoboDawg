@@ -42,10 +42,10 @@ int s_base = 0;
 
 
 //motor control
-int l1_motor = 10;
-int l2_motor = 9;
-int r1_motor = 6;
-int r2_motor = 5; 
+int r2_motor = 6;
+int r1_motor = 9;
+int l1_motor = 11;
+int l2_motor = 10; 
 
 void setup()
 {
@@ -62,10 +62,15 @@ void setup()
   w_base = analogRead(west) - 50;
   e_base = analogRead(east) - 50;
   //s_base = analogRead(south) - 50;
-  
-  lcd.println(n_base);
-  lcd.println(w_base);
-  lcd.println(e_base);
+
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print(n_base);
+  //lcd.setCursor(0,1);
+  //lcd.print(w_base);
+  lcd.setCursor(0,2);
+  lcd.print(e_base);
+  delay(3000);
   //lcd.println(s_base);
   
 }
@@ -96,15 +101,18 @@ void readSensors()
 
 void printSensors()
 {
-  lcd.print("north: ");
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("north ");
   lcd.print(nVal);
-  lcd.print(", ");
+  //lcd.print(", ");
 
-  lcd.print("west: ");
-  lcd.print(wVal);
-  lcd.print(", ");
-  
-  lcd.print("east: ");
+//  lcd.print("west: ");
+//  lcd.print(wVal);
+//  lcd.print(", ");
+
+  lcd.setCursor(11,0);
+  lcd.print("east ");
   lcd.println(eVal);
   //lcd.print(", ");
   
@@ -120,10 +128,63 @@ void loop()
 {
   readSensors();
   printSensors();
+  move();
   //determineDirection();
   //drive(sensorVals[n], sensorVals[s], sensorVals[e], sensorVals[w]);
   //lcd.println();
-  delay(500);
+  delay(1500);
+}
+
+
+void move()
+{
+  printSensors();
+  lcd.setCursor(0,1);
+  if(sensorVals[n] > 130 || sensorVals[e] > 130)
+  {
+  if ((sensorVals[n]*.6) > sensorVals[e])
+  {
+    //go north
+    lcd.print("go north");
+    analogWrite(l1_motor, 255);
+    analogWrite(l2_motor, 0);
+    analogWrite(r1_motor, 255);
+    analogWrite(r2_motor, 0);
+    
+  }
+  else if ((sensorVals[e]*.6) > sensorVals[n])
+  {
+    //go east
+    lcd.print("go east");
+    analogWrite(l1_motor, 255);
+    analogWrite(l2_motor, 0);
+    analogWrite(r1_motor, 0);
+    analogWrite(r2_motor, 255);
+  }
+  else if (abs(((double)sensorVals[n]/(double)sensorVals[e]) - 1)  < 0.15)
+  {
+    //go north east
+    lcd.print("go north-east");
+    analogWrite(l1_motor, 255);
+    analogWrite(l2_motor, 0);
+    analogWrite(r1_motor, 55);
+    analogWrite(r2_motor, 0);
+  }
+  else
+  {
+    //some error
+    //continue along previous path 
+    lcd.print("don't know");
+  }
+  }
+  else
+  {
+    lcd.print("no signal");
+    analogWrite(l1_motor, 0);
+    analogWrite(l2_motor, 0);
+    analogWrite(r1_motor, 0);
+    analogWrite(r2_motor, 0);
+  }
 }
 
 
