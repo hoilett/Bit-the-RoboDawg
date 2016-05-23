@@ -17,8 +17,8 @@
 
 
 #include <SoftwareSerial.h>
-#define BT_SERIAL_TX_DIO 10 
-#define BT_SERIAL_RX_DIO 11
+#define BT_SERIAL_TX_DIO 2
+#define BT_SERIAL_RX_DIO 3
 
 SoftwareSerial BT(BT_SERIAL_TX_DIO, BT_SERIAL_RX_DIO);
 
@@ -66,9 +66,9 @@ void setup()
 
   delay(1000);
 
-  n_base = analogRead(north) - 150;
-  w_base = analogRead(west) - 150;
-  e_base = analogRead(east) - 150;
+  n_base = analogRead(north) - 50;
+  w_base = analogRead(west) - 50;
+  e_base = analogRead(east) - 50;
   //s_base = analogRead(south) - 50;
 
 //  lcd.clear();
@@ -81,6 +81,16 @@ void setup()
 //  delay(3000);
   //lcd.println(s_base);
   
+  BT.print("north: ");
+  BT.print(n_base);
+  BT.print("\t");
+  BT.print("west: ");
+  BT.print(w_base);
+  BT.print("\t");
+  BT.print("east: ");
+  BT.print(e_base);
+  BT.println();
+  BT.println();
 }
 
 
@@ -109,6 +119,17 @@ void readSensors()
 
 void printSensors()
 {
+  BT.print("north: ");
+  BT.print(nVal);
+  BT.print("\t");
+  BT.print("west: ");
+  BT.print(wVal);
+  BT.print("\t");
+  BT.print("east: ");
+  BT.print(eVal);
+  BT.println();
+  BT.println();
+  
 //  lcd.clear();
 //  lcd.setCursor(0,0);
 //  lcd.print("north ");
@@ -137,6 +158,7 @@ void loop()
 {
   readSensors();
   printSensors();
+  //BT.println("hello world");
   move();
   //determineDirection();
   //drive(sensorVals[n], sensorVals[s], sensorVals[e], sensorVals[w]);
@@ -155,6 +177,7 @@ void move()
   {
     //go north
     //lcd.print("go north");
+    BT.print("go north");
     analogWrite(l1_motor, 255);
     analogWrite(l2_motor, 0);
     analogWrite(r1_motor, 255);
@@ -165,6 +188,7 @@ void move()
   {
     //go east
     //lcd.print("go east");
+    BT.print("go east");
     analogWrite(l1_motor, 255);
     analogWrite(l2_motor, 0);
     analogWrite(r1_motor, 0);
@@ -174,6 +198,7 @@ void move()
   {
     //go north east
     //lcd.print("go north-east");
+    BT.print("go north-east");
     analogWrite(l1_motor, 255);
     analogWrite(l2_motor, 0);
     analogWrite(r1_motor, 55);
@@ -184,16 +209,21 @@ void move()
     //some error
     //continue along previous path 
     //lcd.print("don't know");
+    BT.print("don't know");
   }
   }
   else
   {
     //lcd.print("no signal");
+    BT.print("no signal");
     analogWrite(l1_motor, 0);
     analogWrite(l2_motor, 0);
     analogWrite(r1_motor, 0);
     analogWrite(r2_motor, 0);
   }
+
+  BT.println();
+  BT.println();
 }
 
 
