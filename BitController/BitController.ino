@@ -58,16 +58,16 @@ void setup()
 
   delay(1000);
 
-  n_base = analogRead(north) - 50;
-  w_base = analogRead(west) - 50;
-  e_base = analogRead(east) - 50;
+  n_base = analogRead(north) - 150;
+  w_base = analogRead(west) - 150;
+  e_base = analogRead(east) - 150;
   //s_base = analogRead(south) - 50;
 
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print(n_base);
-  //lcd.setCursor(0,1);
-  //lcd.print(w_base);
+  lcd.setCursor(0,1);
+  lcd.print(w_base);
   lcd.setCursor(0,2);
   lcd.print(e_base);
   delay(3000);
@@ -107,13 +107,14 @@ void printSensors()
   lcd.print(nVal);
   //lcd.print(", ");
 
-//  lcd.print("west: ");
-//  lcd.print(wVal);
-//  lcd.print(", ");
+  lcd.setCursor(0,1);
+  lcd.print("west: ");
+  lcd.print(wVal);
+  //lcd.print(", ");
 
-  lcd.setCursor(11,0);
+  lcd.setCursor(0,2);
   lcd.print("east ");
-  lcd.println(eVal);
+  lcd.print(eVal);
   //lcd.print(", ");
   
 //  lcd.print("south: ");
@@ -139,8 +140,8 @@ void loop()
 void move()
 {
   printSensors();
-  lcd.setCursor(0,1);
-  if(sensorVals[n] > 130 || sensorVals[e] > 130)
+  lcd.setCursor(0,3);
+  if(sensorVals[n] > 130 || sensorVals[w] > 130 || sensorVals[e] > 130)
   {
   if ((sensorVals[n]*.6) > sensorVals[e])
   {
@@ -282,8 +283,17 @@ void determineDirection()
 }
 
 
-void drive(int nx, int sx, int ex, int wx)
+void drive(double nx, double sx, double ex, double wx)
 {
+  int val1 = 0;
+  int val2 = 0;
+  int val3 = 0;
+  
+  //val1 = map(nx/wx, ,-255, 255);
+  //val2 = map(nx/ex, ,-255, 255);
+
+
+  
   //north
   if (nx <= 50) nx = 0;
   nx = map(nx, 0, 600, 0, 255);
