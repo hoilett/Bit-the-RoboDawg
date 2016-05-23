@@ -8,6 +8,22 @@ PCB_Designs/BitBeacon/*
 !*.sch
 !*.brd
 
+PCB_Designs/BitBeacon_Breakouts/Type_01/*
+!*.sch
+!*.brd
+
+PCB_Designs/BitBeacon_Breakouts/Type_02/*
+!*.sch
+!*.brd
+
+PCB_Designs/BitBeacon_Breakouts/Type_03/*
+!*.sch
+!*.brd
+
+PCB_Designs/BitBeacon_Breakouts/Type_04/*
+!*.sch
+!*.brd
+
 PCB_Designs/MotorDriver/*
 !*.sch
 !*.brd
