@@ -112,6 +112,17 @@ void setup()
   BT.print(e_base);
   BT.println();
   BT.println();
+
+  Serial.print("north: ");
+  Serial.print(n_base);
+  Serial.print("\t");
+  Serial.print("west: ");
+  Serial.print(w_base);
+  Serial.print("\t");
+  Serial.print("east: ");
+  Serial.print(e_base);
+  Serial.println();
+  Serial.println();
 }
 
 
@@ -147,9 +158,20 @@ void printSensors()
   BT.print(wVal);
   BT.print("\t");
   BT.print("east: ");
-  BT.print(eVal);
-  BT.println();
-  BT.println();
+  BT.println(eVal);
+//  BT.println();
+//  BT.println();
+
+  Serial.print("north: ");
+  Serial.print(nVal);
+  Serial.print("\t");
+  Serial.print("west: ");
+  Serial.print(wVal);
+  Serial.print("\t");
+  Serial.print("east: ");
+  Serial.println(eVal);
+//  Serial.println();
+//  Serial.println();
   
 //  lcd.clear();
 //  lcd.setCursor(0,0);
@@ -179,8 +201,13 @@ void loop()
 {
   readSensors();
   printSensors();
-  sensorVals[s] = 1;
+  sensorVals[s] = 20;
   drive(sensorVals[n], sensorVals[s], sensorVals[e], sensorVals[w]);
+  
+  BT.println();
+  BT.println();
+  Serial.println();
+  Serial.println();
   //BT.println("hello world");
   //dmove();
   //determineDirection();
@@ -201,6 +228,7 @@ void move()
     //go north
     //lcd.print("go north");
     BT.print("go north");
+    Serial.print("go north");
     analogWrite(l1_motor, 255);
     analogWrite(l2_motor, 0);
     analogWrite(r1_motor, 255);
@@ -212,6 +240,7 @@ void move()
     //go east
     //lcd.print("go east");
     BT.print("go east");
+    Serial.print("go east");
     analogWrite(l1_motor, 255);
     analogWrite(l2_motor, 0);
     analogWrite(r1_motor, 0);
@@ -222,6 +251,7 @@ void move()
     //go north east
     //lcd.print("go north-east");
     BT.print("go north-east");
+    Serial.print("go north-east");
     analogWrite(l1_motor, 255);
     analogWrite(l2_motor, 0);
     analogWrite(r1_motor, 55);
@@ -233,20 +263,24 @@ void move()
     //continue along previous path 
     //lcd.print("don't know");
     BT.print("don't know");
+    Serial.print("don't know");
   }
   }
   else
   {
     //lcd.print("no signal");
     BT.print("no signal");
+    Serial.print("no signal");
     analogWrite(l1_motor, 0);
     analogWrite(l2_motor, 0);
     analogWrite(r1_motor, 0);
     analogWrite(r2_motor, 0);
   }
 
-  BT.println();
-  BT.println();
+//  BT.println();
+//  BT.println();
+//  Serial.println();
+//  Serial.println();
 }
 
 
@@ -352,9 +386,21 @@ void drive(double nx, double sx, double ex, double wx)
   int val2 = 0;
   int val3 = 0;
   
-  val_ns = map(log10(nx/sx), -log10(600), log10(600), -127, 127); //S at -127, N at 127
-  val_ew = map(log10(ex/sx), -log10(600), log10(600), -127, 127); //W at -127, E at 127
+  val_ns = map(log(nx/sx), -log(30), log(30), -127, 127); //S at -127, N at 127
+  val_ew = map(log(ex/wx), -log(30), log(30), -127, 127); //W at -127, E at 127
   //The summed/subtracted range of val_ns with val_ew is +/-254
+
+  Serial.print("val_ns: ");
+  Serial.print(val_ns);
+  Serial.print("\t");
+  Serial.print("val_ew: ");
+  Serial.println(val_ew);
+
+  BT.print("val_ns: ");
+  BT.print(val_ns);
+  BT.print("\t");
+  BT.print("val_ew: ");
+  BT.println(val_ew);
 
   if (val_ns - val_ew > 0) //Left motors
   {
