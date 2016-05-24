@@ -1,0 +1,17 @@
+git branch - tells what branch you're one
+git branch <newbranchname> - makes a new branch
+git checkout <branchname> - swiches branches to new branch name
+
+
+http://stackoverflow.com/questions/3876977/update-git-branches-from-master
+update branch from master
+git fetch
+git rebase origin/master
+
+
+http://stackoverflow.com/questions/5601931/best-and-safest-way-to-merge-a-git-branch-into-master
+update master from branch
+git checkout master
+git pull origin master
+git merge test
+git push origin master
