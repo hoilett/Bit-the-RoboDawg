@@ -64,11 +64,32 @@ void setup()
 //  lcd.setBacklight(HIGH);
 //  lcd.home ();
 
-  delay(1000);
+  delay(2000);
 
-  n_base = analogRead(north) - 50;
-  w_base = analogRead(west) - 50;
-  e_base = analogRead(east) - 50;
+  int max_n = -1023;
+  int max_w = -1023;
+  int max_e = -1023;
+  long timer1 = millis();
+
+  while((timer1 - millis()) < 500)
+  {
+    int temp_north = analogRead(north);
+    int temp_west = analogRead(west);
+    int temp_east = analogRead(east);
+    
+    if(temp_north > max_n) max_n = temp_north;
+    if(temp_west > max_w) max_w = temp_west;
+    if(temp_east > max_e) max_e = temp_east;
+    delay(10);
+  }
+
+  n_base = max_n - 20;
+  w_base = max_w - 20;
+  e_base = max_e - 20;
+
+//  n_base = analogRead(north) - 50;
+//  w_base = analogRead(west) - 50;
+//  e_base = analogRead(east) - 50;
   //s_base = analogRead(south) - 50;
 
 //  lcd.clear();
@@ -158,8 +179,10 @@ void loop()
 {
   readSensors();
   printSensors();
+  sensorVals[s] = 1;
+  drive(sensorVals[n], sensorVals[s], sensorVals[e], sensorVals[w]);
   //BT.println("hello world");
-  move();
+  //dmove();
   //determineDirection();
   //drive(sensorVals[n], sensorVals[s], sensorVals[e], sensorVals[w]);
   //lcd.println();
