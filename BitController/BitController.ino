@@ -323,21 +323,48 @@ void determineDirection()
 
 void drive(double nx, double sx, double ex, double wx)
 {
+  int val_ns = 0;
+  int val_ew = 0;
   int val1 = 0;
   int val2 = 0;
   int val3 = 0;
   
-  //val1 = map(nx/wx, ,-255, 255);
-  //val2 = map(nx/ex, ,-255, 255);
+  val_ns = map(log10(nx/sx), -log10(600), log10(600), -127, 127); //S at -127, N at 127
+  val_ew = map(log10(ex/sx), -log10(600), log10(600), -127, 127); //W at -127, E at 127
+  //The summed/subtracted range of val_ns with val_ew is +/-254
 
+  if (val_ns - val_ew > 0) //Left motors
+  {
+    analogWrite(l1_motor, val_ns - val_ew); //(l1 high & l2 low, motors go forward)
+    analogWrite(l2_motor, 0);
+  }
+  else
+  {
+    analogWrite(l1_motor, 0);
+    analogWrite(l2_motor, abs(val_ns - val_ew));
+  }
 
-  
+  if (val_ns + val_ew > 0) //Right motors
+  {
+    analogWrite(r1_motor, val_ns + val_ew);
+    analogWrite(r2_motor, 0);
+  }
+  else
+  {
+    analogWrite(r1_motor, 0);
+    analogWrite(r2_motor, abs(val_ns + val_ew));
+  }
+
+  //val1 = map(nx/ex, , , -255, 255)
+  //val2 = map(nx/wx, , , -255, 255)
+
   //north
-  if (nx <= 50) nx = 0;
-  nx = map(nx, 0, 600, 0, 255);
-  analogWrite(l1_motor, nx);
-  analogWrite(l2_motor, 0);
-  analogWrite(r1_motor, nx);
-  analogWrite(r2_motor, 0);
+  //if (nx <= 50) nx = 0;
+  //sx = map(nx, 0, 600, 0, 255);
+  //analogWrite(l1_motor, nx);
+  //analogWrite(l2_motor, 0);
+  //analogWrite(r1_motor, nx);
+  //analogWrite(r2_motor, 0);
+
 }
 
