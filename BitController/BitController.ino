@@ -28,10 +28,10 @@ const uint8_t west = A1;
 const uint8_t east = A2;
 const uint8_t south = A3;
 
-int nVal = 0;
-int wVal = 0;
-int eVal = 0;
-int sVal = 0;
+double nVal = 0;
+double wVal = 0;
+double eVal = 0;
+double sVal = 0;
 
 int n = 0;
 int w = 1;
@@ -40,12 +40,12 @@ int s = 3;
 
 const int arr_size = 4;
 
-int sensorVals[arr_size] = {0};
+double sensorVals[arr_size] = {0};
 
-int n_base = 0;
-int w_base = 0;
-int e_base = 0;
-int s_base = 0;
+double n_base = 0;
+double w_base = 0;
+double e_base = 0;
+double s_base = 0;
 
 
 //motor control
@@ -125,27 +125,39 @@ void setup()
   Serial.println();
 }
 
-
 void readSensors()
 {
-  int north_intensity = analogRead(north);
-  int west_intensity = analogRead(west);
-  int east_intensity = analogRead(east);
+  int north_temp = 0;
+  int west_temp = 0;
+  int east_temp = 0;
+  //int north_temp = 0;
+  for (int i = 0; i < 10; i++)
+  {
+    north_temp += analogRead(north);
+    west_temp += analogRead(west);
+    east_temp += analogRead(east);
+    delay(50);
+  }
+
+  nVal = north_temp/10.0 - n_base;
+  wVal = west_temp/10.0 - w_base;
+  eVal = east_temp/10.0 - e_base;
+
+//  int north_intensity = analogRead(north);
+//  int west_intensity = analogRead(west);
+//  int east_intensity = analogRead(east);
   //int south_intensity = analogRead(south);
   
-  
-  nVal = north_intensity - n_base;
-  wVal = west_intensity - w_base;
-  eVal = east_intensity - e_base;
+//  nVal = north_intensity - n_base;
+//  wVal = west_intensity - w_base;
+//  eVal = east_intensity - e_base;
   //sVal = south_intensity - s_base;
-  
 
   //sensorVals[0] = {nVal, eVal, sVal, wVal};
   sensorVals[n] = nVal;
   sensorVals[w] = wVal;
   sensorVals[e] = eVal;
-  //sensorVals[s] = sVal;
-  
+  //sensorVals[s] = sVal;  
 }
 
 
@@ -201,8 +213,9 @@ void loop()
 {
   readSensors();
   printSensors();
-  sensorVals[s] = 20;
-  drive(sensorVals[n], sensorVals[s], sensorVals[e], sensorVals[w]);
+  //sensorVals[s] = 300;
+  determineDirection();
+  //drive(sensorVals[n], sensorVals[s], sensorVals[e], sensorVals[w]);
   
   BT.println();
   BT.println();
@@ -213,7 +226,7 @@ void loop()
   //determineDirection();
   //drive(sensorVals[n], sensorVals[s], sensorVals[e], sensorVals[w]);
   //lcd.println();
-  delay(1500);
+  //delay(1500);
 }
 
 
@@ -290,90 +303,156 @@ void determineDirection()
   //check to see which direction has highest value
   //check to see which direction is second
   //check to see which direction is third
-
-  if ((sensorVals[n]*.6) > sensorVals[w] && (sensorVals[n]*.6) > sensorVals[e])
+  if(sensorVals[n] > 80 || sensorVals[w] > 80 || sensorVals[e] > 80)
+  {
+  if ((sensorVals[n]*.7) > sensorVals[w] || (sensorVals[n]*.7) > sensorVals[e])
   {
     if (abs(sensorVals[w]-sensorVals[e]) < 50)
     {
+      analogWrite(l1_motor, 200);
+      analogWrite(l2_motor, 0);
+      analogWrite(r1_motor, 200);
+      analogWrite(r2_motor, 0);
       //lcd.println("head north");
+      Serial.println("head north");
+      BT.println("head north");
     }
     else if (sensorVals[w]*1.2 >= sensorVals[e]*1.2)
     {
+      analogWrite(l1_motor, 50);
+      analogWrite(l2_motor, 0);
+      analogWrite(r1_motor, 200);
+      analogWrite(r2_motor, 0);
       //lcd.println("head north-west");
+      Serial.println("head north-west");
+      BT.println("head north-west");
     }
     else if (sensorVals[e]*1.2 >= sensorVals[w]*1.2)
     {
+      analogWrite(l1_motor, 200);
+      analogWrite(l2_motor, 0);
+      analogWrite(r1_motor, 50);
+      analogWrite(r2_motor, 0);
       //lcd.println("head north-east");
+      Serial.println("head north-east");
+      BT.println("head north-east");
     }
     else
     {
       //lcd.println("no direction or continue moving along last direction");
+      Serial.println("no direction or continue moving along last direction");
+      BT.println("no direction or continue moving along last direction");
       //some error
     }
   }
-  else if ((sensorVals[e]*.6) > sensorVals[n] && (sensorVals[e]*.6) > sensorVals[s])
+  //else if ((sensorVals[e]*.6) > sensorVals[n] && (sensorVals[e]*.6) > sensorVals[s])
+  else if ((sensorVals[e]*.65) > sensorVals[n] && sensorVals[e]*.9 > sensorVals[w])
+  //else if ((sensorVals[e]*.65) > sensorVals[n] && sensorVals[e] > 100)
   {
-    if (abs(sensorVals[n]-sensorVals[s]) < 50)
-    {
-      //lcd.println("head east");
-    }
-    else if (sensorVals[n]*1.2 >= sensorVals[s]*1.2)
-    {
-      //lcd.println("head east-north-east");
-    }
-    else if (sensorVals[s]*1.2 >= sensorVals[n]*1.2)
-    {
-      //lcd.println("head east-south-east");
-    }
-    else
-    {
-      //lcd.println("no direction or continue moving along last direction");
-      //some error
-    }
+      analogWrite(l1_motor, 200);
+      analogWrite(l2_motor, 0);
+      analogWrite(r1_motor, 0);
+      analogWrite(r2_motor, 200);
+    Serial.println("head east");
+    BT.println("head east");
+//    if (abs(sensorVals[n]-sensorVals[s]) < 50)
+//    {
+//      //lcd.println("head east");
+//      Serial.println("head east");
+//      BT.println("head east");
+//    }
+//    else if (sensorVals[n]*1.2 >= sensorVals[s]*1.2)
+//    {
+//      //lcd.println("head east-north-east");
+//      Serial.println("head east-north-east");
+//      BT.println("head east-north-east");
+//    }
+//    else if (sensorVals[s]*1.2 >= sensorVals[n]*1.2)
+//    {
+//      //lcd.println("head east-south-east");
+//      Serial.println("head east-south-east");
+//      BT.println("head east-south-east");
+//    }
+//    else
+//    {
+//      //lcd.println("no direction or continue moving along last direction");
+//      Serial.println("no direction or continue moving along last direction");
+//      BT.println("no direction or continue moving along last direction");
+//      //some error
+//    }
   }
-  else if ((sensorVals[w]*.6) > sensorVals[n] && (sensorVals[w]*.6) > sensorVals[s])
+  //else if ((sensorVals[w]*.6) > sensorVals[n] && (sensorVals[w]*.6) > sensorVals[s])
+  else if ((sensorVals[w]*.65) > sensorVals[n] && sensorVals[w]*.9 > sensorVals[e])
+  //else if ((sensorVals[w]*.65) > sensorVals[n]  && sensorVals[w > 100)
   {
-    if (abs(sensorVals[n]-sensorVals[s]) < 50)
-    {
-     // lcd.println("head west");
-    }
-    else if (sensorVals[n]*1.2 >= sensorVals[s]*1.2)
-    {
-      //lcd.println("head west-north-west");
-    }
-    else if (sensorVals[s]*1.2 >= sensorVals[n]*1.2)
-    {
-      //lcd.println("head west-south-west");
-    }
-    else
-    {
-      //lcd.println("no direction or continue moving along last direction");
-      //some error
-    }
+      analogWrite(l1_motor, 0);
+      analogWrite(l2_motor, 200);
+      analogWrite(r1_motor, 200);
+      analogWrite(r2_motor, 0);
+     Serial.println("head west");
+     BT.println("head west");
+//    if (abs(sensorVals[n]-sensorVals[s]) < 50)
+//    {
+//     // lcd.println("head west");
+//     Serial.println("head west");
+//     BT.println("head west");
+//    }
+//    else if (sensorVals[n]*1.2 >= sensorVals[s]*1.2)
+//    {
+//      //lcd.println("head west-north-west");
+//      Serial.println("head west-north-west");
+//      BT.println("head west-north-west");
+//    }
+//    else if (sensorVals[s]*1.2 >= sensorVals[n]*1.2)
+//    {
+//      //lcd.println("head west-south-west");
+//      Serial.println("head west-south-west");
+//      BT.println("head west-south-west");
+//    }
+//    else
+//    {
+//      //lcd.println("no direction or continue moving along last direction");
+//      Serial.println("no direction or continue moving along last direction");
+//      BT.println("no direction or continue moving along last direction");
+//      //some error
+//    }
   }
-  else if ((sensorVals[s]*.6) > sensorVals[w] && (sensorVals[s]*.6) > sensorVals[e])
-  {
-    if (abs(sensorVals[w]-sensorVals[e]) < 50)
-    {
-      //lcd.println("head south");
-    }
-    else if (sensorVals[w]*1.2 >= sensorVals[e]*1.2)
-    {
-      //lcd.println("head south-west");
-    }
-    else if (sensorVals[e]*1.2 >= sensorVals[w]*1.2)
-    {
-      //lcd.println("head south-east");
-    }
-    else
-    {
-      //lcd.println("no direction or continue moving along last direction");
-      //some error
-    }
-  }
+//  else if ((sensorVals[s]*.6) > sensorVals[w] && (sensorVals[s]*.6) > sensorVals[e])
+//  {
+//    if (abs(sensorVals[w]-sensorVals[e]) < 50)
+//    {
+//      //lcd.println("head south");
+//    }
+//    else if (sensorVals[w]*1.2 >= sensorVals[e]*1.2)
+//    {
+//      //lcd.println("head south-west");
+//    }
+//    else if (sensorVals[e]*1.2 >= sensorVals[w]*1.2)
+//    {
+//      //lcd.println("head south-east");
+//    }
+//    else
+//    {
+//      //lcd.println("no direction or continue moving along last direction");
+//      //some error
+//    }
+//  }
   else
   {
     //lcd.println("got no where");
+    Serial.println("got no where");
+    BT.println("got no where");
+  }
+  }
+  else
+  {
+      analogWrite(l1_motor, 0);
+      analogWrite(l2_motor, 0);
+      analogWrite(r1_motor, 0);
+      analogWrite(r2_motor, 0);
+     Serial.println("no signal");
+     BT.println("no signal");
+    
   }
 }
 
@@ -404,6 +483,12 @@ void drive(double nx, double sx, double ex, double wx)
 
   if (val_ns - val_ew > 0) //Left motors
   {
+//    for (int i = 0; i < val_ns - val_ew; i++)
+//    {
+//      analogWrite(l1_motor, i);
+//      delay(1);
+//     
+//    }
     analogWrite(l1_motor, val_ns - val_ew); //(l1 high & l2 low, motors go forward)
     analogWrite(l2_motor, 0);
   }
