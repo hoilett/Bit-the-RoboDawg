@@ -54,6 +54,8 @@ int r1_motor = 9;
 int l1_motor = 11;
 int l2_motor = 10; 
 
+int move_threshold = 30;
+
 void setup()
 {
   Serial.begin(115200);
@@ -234,7 +236,7 @@ void move()
 {
   printSensors();
   //lcd.setCursor(0,3);
-  if(sensorVals[n] > 130 || sensorVals[w] > 130 || sensorVals[e] > 130)
+  if(sensorVals[n] > move_threshold || sensorVals[w] > move_threshold || sensorVals[e] > move_threshold)
   {
   if ((sensorVals[n]*.6) > sensorVals[e])
   {
@@ -309,9 +311,9 @@ void determineDirection()
   {
     if (abs(sensorVals[w]-sensorVals[e]) < 50)
     {
-      analogWrite(l1_motor, 200);
+      analogWrite(l1_motor, 230);
       analogWrite(l2_motor, 0);
-      analogWrite(r1_motor, 200);
+      analogWrite(r1_motor, 230);
       analogWrite(r2_motor, 0);
       //lcd.println("head north");
       Serial.println("head north");
@@ -319,9 +321,9 @@ void determineDirection()
     }
     else if (sensorVals[w]*1.2 >= sensorVals[e]*1.2)
     {
-      analogWrite(l1_motor, 50);
+      analogWrite(l1_motor, 100);
       analogWrite(l2_motor, 0);
-      analogWrite(r1_motor, 200);
+      analogWrite(r1_motor, 230);
       analogWrite(r2_motor, 0);
       //lcd.println("head north-west");
       Serial.println("head north-west");
@@ -329,9 +331,9 @@ void determineDirection()
     }
     else if (sensorVals[e]*1.2 >= sensorVals[w]*1.2)
     {
-      analogWrite(l1_motor, 200);
+      analogWrite(l1_motor, 230);
       analogWrite(l2_motor, 0);
-      analogWrite(r1_motor, 50);
+      analogWrite(r1_motor, 100);
       analogWrite(r2_motor, 0);
       //lcd.println("head north-east");
       Serial.println("head north-east");
@@ -349,10 +351,10 @@ void determineDirection()
   else if ((sensorVals[e]*.65) > sensorVals[n] && sensorVals[e]*.9 > sensorVals[w])
   //else if ((sensorVals[e]*.65) > sensorVals[n] && sensorVals[e] > 100)
   {
-      analogWrite(l1_motor, 200);
+      analogWrite(l1_motor, 230);
       analogWrite(l2_motor, 0);
       analogWrite(r1_motor, 0);
-      analogWrite(r2_motor, 200);
+      analogWrite(r2_motor, 230);
     Serial.println("head east");
     BT.println("head east");
 //    if (abs(sensorVals[n]-sensorVals[s]) < 50)
@@ -386,8 +388,8 @@ void determineDirection()
   //else if ((sensorVals[w]*.65) > sensorVals[n]  && sensorVals[w > 100)
   {
       analogWrite(l1_motor, 0);
-      analogWrite(l2_motor, 200);
-      analogWrite(r1_motor, 200);
+      analogWrite(l2_motor, 230);
+      analogWrite(r1_motor, 230);
       analogWrite(r2_motor, 0);
      Serial.println("head west");
      BT.println("head west");
