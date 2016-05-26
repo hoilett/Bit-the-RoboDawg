@@ -54,7 +54,7 @@ int r1_motor = 9;
 int l1_motor = 11;
 int l2_motor = 10; 
 
-int move_threshold = 30;
+int move_threshold = 55;
 
 void setup()
 {
@@ -73,21 +73,31 @@ void setup()
   int max_e = -1023;
   long timer1 = millis();
 
-  while((timer1 - millis()) < 500)
-  {
-    int temp_north = analogRead(north);
-    int temp_west = analogRead(west);
-    int temp_east = analogRead(east);
+//  while((timer1 - millis()) < 500)
+//  {
+    int temp_north = 0;
+    int temp_west = 0;
+    int temp_east = 0;
     
-    if(temp_north > max_n) max_n = temp_north;
-    if(temp_west > max_w) max_w = temp_west;
-    if(temp_east > max_e) max_e = temp_east;
+    for (int i = 0; i < 10; i++)
+    {
+//    int temp_north = analogRead(north);
+//    int temp_west = analogRead(west);
+//    int temp_east = analogRead(east);
+
+    temp_north += analogRead(north);
+    temp_west += analogRead(west);
+    temp_east += analogRead(east);
+    
+//    if(temp_north > max_n) max_n = temp_north;
+//    if(temp_west > max_w) max_w = temp_west;
+//    if(temp_east > max_e) max_e = temp_east;
     delay(10);
   }
 
-  n_base = max_n - 20;
-  w_base = max_w - 20;
-  e_base = max_e - 20;
+  n_base = temp_north/10 - 20;
+  w_base = temp_west/10 - 20;
+  e_base = temp_east/10 - 20;
 
 //  n_base = analogRead(north) - 50;
 //  w_base = analogRead(west) - 50;
@@ -138,7 +148,7 @@ void readSensors()
     north_temp += analogRead(north);
     west_temp += analogRead(west);
     east_temp += analogRead(east);
-    delay(50);
+    delay(20);
   }
 
   nVal = north_temp/10.0 - n_base;
@@ -229,6 +239,7 @@ void loop()
   //drive(sensorVals[n], sensorVals[s], sensorVals[e], sensorVals[w]);
   //lcd.println();
   //delay(1500);
+  delay(10);
 }
 
 
@@ -305,15 +316,15 @@ void determineDirection()
   //check to see which direction has highest value
   //check to see which direction is second
   //check to see which direction is third
-  if(sensorVals[n] > 80 || sensorVals[w] > 80 || sensorVals[e] > 80)
+  if(sensorVals[n] > move_threshold || sensorVals[w] > move_threshold || sensorVals[e] > move_threshold)
   {
   if ((sensorVals[n]*.7) > sensorVals[w] || (sensorVals[n]*.7) > sensorVals[e])
   {
     if (abs(sensorVals[w]-sensorVals[e]) < 50)
     {
-      analogWrite(l1_motor, 230);
+      analogWrite(l1_motor, 200);
       analogWrite(l2_motor, 0);
-      analogWrite(r1_motor, 230);
+      analogWrite(r1_motor, 200);
       analogWrite(r2_motor, 0);
       //lcd.println("head north");
       Serial.println("head north");
@@ -321,7 +332,7 @@ void determineDirection()
     }
     else if (sensorVals[w]*1.2 >= sensorVals[e]*1.2)
     {
-      analogWrite(l1_motor, 100);
+      analogWrite(l1_motor, 50);
       analogWrite(l2_motor, 0);
       analogWrite(r1_motor, 230);
       analogWrite(r2_motor, 0);
@@ -333,7 +344,7 @@ void determineDirection()
     {
       analogWrite(l1_motor, 230);
       analogWrite(l2_motor, 0);
-      analogWrite(r1_motor, 100);
+      analogWrite(r1_motor, 50);
       analogWrite(r2_motor, 0);
       //lcd.println("head north-east");
       Serial.println("head north-east");
@@ -351,10 +362,10 @@ void determineDirection()
   else if ((sensorVals[e]*.65) > sensorVals[n] && sensorVals[e]*.9 > sensorVals[w])
   //else if ((sensorVals[e]*.65) > sensorVals[n] && sensorVals[e] > 100)
   {
-      analogWrite(l1_motor, 230);
+      analogWrite(l1_motor, 200);
       analogWrite(l2_motor, 0);
       analogWrite(r1_motor, 0);
-      analogWrite(r2_motor, 230);
+      analogWrite(r2_motor, 200);
     Serial.println("head east");
     BT.println("head east");
 //    if (abs(sensorVals[n]-sensorVals[s]) < 50)
@@ -388,8 +399,8 @@ void determineDirection()
   //else if ((sensorVals[w]*.65) > sensorVals[n]  && sensorVals[w > 100)
   {
       analogWrite(l1_motor, 0);
-      analogWrite(l2_motor, 230);
-      analogWrite(r1_motor, 230);
+      analogWrite(l2_motor, 200);
+      analogWrite(r1_motor, 200);
       analogWrite(r2_motor, 0);
      Serial.println("head west");
      BT.println("head west");

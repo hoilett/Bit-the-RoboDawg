@@ -1,3 +1,21 @@
 Project Log
 
+Wednesday, March 25, 2016
+Changing naming conventions. The light source will be known as BitBeacon and
+the photodiode circuit will be the BitReceptor.
+
+Added a non-inverting amplifier to BitBeacon to get a higher peak-to-peak
+emission from ~5V-4.2V to 1.3V-0.96V for about 3V-3.5V peak-to-peak. Now
+using 3 IR LEDs (SFH 4545) and a 6.8 kOhm base resistor. But also swap between
+5.6 kOhm to 8.2 kOhm. Average current through each LED is on the order of
+33 mA.
+
+Moved C3 from ground to 5V. It appears to make the sine wave generator
+much more stable.
+
+
 Tuesday, March 24, 2016
+Moved back to using if/else if/else statements to determine the direction.
+This is a change from writing sensor intensity values directly to the motors
+with analogWrite. Using if statements appears to be more fluid. The other
+method mentioned needs more work.
