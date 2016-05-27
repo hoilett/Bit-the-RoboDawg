@@ -1,5 +1,11 @@
 Project Log
 
+Thursday, March 26, 2016
+I noticed that with using Bit indoors in BME, that the light intensity probably doesn’t need to be very high. I also noticed that as Bit gets closer to the Beacon, the light intensity should decrease as to decrease the cross-talk between north, east, and west on the BitReceptor. Maybe there should be a feedback between the Beacon and the Receptor to decrease light intensity when Bit gets closer to the BitBeacon.
+
+Bit also needs an obstacle avoiding mechanism.
+
+
 Wednesday, March 25, 2016
 Changing naming conventions. The light source will be known as BitBeacon and
 the photodiode circuit will be the BitReceptor.

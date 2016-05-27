@@ -7,5 +7,3 @@ Use the nRF24L01 to do fancy movements
 The nRF24L01 modules will override the BitBeacon circuit
 1. Figure 8
 2. Cute patterns
-
-
