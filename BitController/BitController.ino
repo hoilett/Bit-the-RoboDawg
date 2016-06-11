@@ -23,6 +23,7 @@
  *  
  */
 
+#include "Queue.h"
 
 //include Bluetooth connectivity for debugging
 #include <SoftwareSerial.h>
@@ -75,6 +76,18 @@ int l2_motor = 10;
 
 //threshold intensity values for each cardinal point
 int move_threshold = 55;
+
+uint8_t dir[5] = {0};
+//1 is north
+//2 is west
+//3 is east
+//4 is north-west
+//5 is north-east
+//0 is no signal
+uint8_t index = 0;
+boolean motion = false;
+
+Queue<uint8_t> lastDir;
 
 void setup()
 {
@@ -130,6 +143,16 @@ void setup()
   Serial.print(e_base);
   Serial.println();
   Serial.println();
+
+  //initializes movement queue
+  lastDir.enqueue(0);
+  lastDir.enqueue(0);
+  lastDir.enqueue(0);
+
+  analogWrite(l1_motor, 0);
+  analogWrite(l2_motor, 0);
+  analogWrite(r1_motor, 0);
+  analogWrite(r2_motor, 0);
 }
 
 
@@ -210,82 +233,14 @@ void loop()
   Serial.println();
 
   delay(10);
-}
 
-
-
-//void move()
-//Determines movement direction for Bit based on intensity values of each
-//sensor. this method has been replaced by the determineDirection() method
-// as of Version 0.1.0 and was only used as a test with the north and east
-//cardinal points
-void move()
-{
-  printSensors();
-
-  //Check if movement threshold has been reached by any of the sensors.
-  if(sensorVals[n] > move_threshold || sensorVals[w] > move_threshold || sensorVals[e] > move_threshold)
+  index++;
+  if(index > 2)
   {
-    //If north intensity is higher than east intensity, the Bit should move
-    //due north.
-    if ((sensorVals[n]*.6) > sensorVals[e])
-    {
-      BT.print("go north");
-      Serial.print("go north");
-      analogWrite(l1_motor, 255);
-      analogWrite(l2_motor, 0);
-      analogWrite(r1_motor, 255);
-      analogWrite(r2_motor, 0);    
-    }
-    //If east intensity is higher than north intensity, the Bit should move
-    //due east.
-    else if ((sensorVals[e]*.6) > sensorVals[n])
-    {
-      BT.print("go east");
-      Serial.print("go east");
-      analogWrite(l1_motor, 255);
-      analogWrite(l2_motor, 0);
-      analogWrite(r1_motor, 0);
-      analogWrite(r2_motor, 255);
-    }
-    //If the north and east intensity ratios are comparable, then Bit should
-    //move due north-east. If the ratio of north intensity to east intensity is
-    //1, then the intensities are equal. If the ratio is within 0.15 of 1, so
-    //either 0.85 and 1.15, then the intensities are comparable and Bit moves
-    //due north-east.
-    else if (abs(((double)sensorVals[n]/(double)sensorVals[e]) - 1)  < 0.15)
-    {
-      BT.print("go north-east");
-      Serial.print("go north-east");
-      analogWrite(l1_motor, 255);
-      analogWrite(l2_motor, 0);
-      analogWrite(r1_motor, 55);
-      analogWrite(r2_motor, 0);
-    }
-    //If no direction can be determined, move along previously determined path
-    else
-    {
-      //some error
-      //continue along previous path 
-      BT.print("don't know");
-      Serial.print("don't know");
-    }
+    dir[2] = dir[1];
+    dir[1] = dir[0];
+    index == 0;
   }
-  //if movement threshold has not been reached, Bit will stop
-  else
-  {
-    BT.print("no signal");
-    Serial.print("no signal");
-    analogWrite(l1_motor, 0);
-    analogWrite(l2_motor, 0);
-    analogWrite(r1_motor, 0);
-    analogWrite(r2_motor, 0);
-  }
-
-//  BT.println();
-//  BT.println();
-//  Serial.println();
-//  Serial.println();
 }
 
 
@@ -302,14 +257,18 @@ void determineDirection()
       //if the west and east intensities are very close, this means that the
       //BitBeacon is coming directly from north and Bit should head north
       if (abs(sensorVals[w]-sensorVals[e]) < 50)
-      {
-        analogWrite(l1_motor, 200);
-        analogWrite(l2_motor, 0);
-        analogWrite(r1_motor, 200);
-        analogWrite(r2_motor, 0);
-        //lcd.println("head north");
-        Serial.println("head north");
-        BT.println("head north");
+      {        
+        dir[index] = 1;
+        if(index == 2 && dir[0] = 1 && dir[1] = 1 && dir[2] = 1)
+        {
+          analogWrite(l1_motor, 200);
+          analogWrite(l2_motor, 0);
+          analogWrite(r1_motor, 200);
+          analogWrite(r2_motor, 0);
+          //lcd.println("head north");
+          Serial.println("head north");
+          BT.println("head north");
+        }
       }
       //If west intensity is greater than east intensity, then this means
       //that the BitBeacon signal is coming from north-west
@@ -317,13 +276,18 @@ void determineDirection()
       //turns left (west)
       else if (sensorVals[w]*1.2 >= sensorVals[e]*1.2)
       {
-        analogWrite(l1_motor, 50);
-        analogWrite(l2_motor, 0);
-        analogWrite(r1_motor, 230);
-        analogWrite(r2_motor, 0);
-        //lcd.println("head north-west");
-        Serial.println("head north-west");
-        BT.println("head north-west");
+        dir[index] = 4;
+        if(index == 2 && dir[0] = 4 && dir[1] = 4 && dir[2] = 4)
+        {
+          analogWrite(l1_motor, 50);
+          analogWrite(l2_motor, 0);
+          analogWrite(r1_motor, 230);
+          analogWrite(r2_motor, 0);
+          //lcd.println("head north-west");
+          Serial.println("head north-west");
+          BT.println("head north-west");
+        }
+        
       }
       //If east intensity is greater than east intensity, then this means
       //that the BitBeacon signal is coming from north-east
@@ -331,13 +295,17 @@ void determineDirection()
       //turns right (east)
       else if (sensorVals[e]*1.2 >= sensorVals[w]*1.2)
       {
-        analogWrite(l1_motor, 230);
-        analogWrite(l2_motor, 0);
-        analogWrite(r1_motor, 50);
-        analogWrite(r2_motor, 0);
-        //lcd.println("head north-east");
-        Serial.println("head north-east");
-        BT.println("head north-east");
+        dir[index] = 5;
+        if(index == 2 && dir[0] = 5 && dir[1] = 5 && dir[2] = 5)
+        {
+          analogWrite(l1_motor, 230);
+          analogWrite(l2_motor, 0);
+          analogWrite(r1_motor, 50);
+          analogWrite(r2_motor, 0);
+          //lcd.println("head north-east");
+          Serial.println("head north-east");
+          BT.println("head north-east");
+        }
       }
       //if neither conditions above are met, then Bit contiues along the
       //previous known direction
@@ -357,12 +325,17 @@ void determineDirection()
     //As of Version 0.1.0. the delineation between east and north-east is a fuzzy
     else if ((sensorVals[e]*.65) > sensorVals[n] && sensorVals[e]*.9 > sensorVals[w])
     {
-      analogWrite(l1_motor, 200);
-      analogWrite(l2_motor, 0);
-      analogWrite(r1_motor, 0);
-      analogWrite(r2_motor, 200);
-      Serial.println("head east");
-      BT.println("head east");
+      dir[index] = 3;
+      if(index == 2 && dir[0] = 3 && dir[1] = 3 && dir[2] = 3)
+      {
+        analogWrite(l1_motor, 200);
+        analogWrite(l2_motor, 0);
+        analogWrite(r1_motor, 0);
+        analogWrite(r2_motor, 200);
+        Serial.println("head east");
+        BT.println("head east");
+      }
+      
     }
   
     //if the west intensity value is greater than the north and west intensity
@@ -372,12 +345,16 @@ void determineDirection()
     //As of Version 0.1.0. the delineation between west and north-west is a fuzzy
     else if ((sensorVals[w]*.65) > sensorVals[n] && sensorVals[w]*.9 > sensorVals[e])
     {
+      dir[index] = 2;
+      if(index == 2 && dir[0] = 2 && dir[1] = 2 && dir[2] = 2)
+      {
         analogWrite(l1_motor, 0);
         analogWrite(l2_motor, 200);
         analogWrite(r1_motor, 200);
         analogWrite(r2_motor, 0);
-       Serial.println("head west");
-       BT.println("head west");
+        Serial.println("head west");
+        BT.println("head west");
+        }
     }
 
     //If no direction can be determined, Bit continues along the previously
@@ -392,12 +369,16 @@ void determineDirection()
   //If a movement threshold has not been crossed, Bit stops moving.
   else
   {
-    analogWrite(l1_motor, 0);
-    analogWrite(l2_motor, 0);
-    analogWrite(r1_motor, 0);
-    analogWrite(r2_motor, 0);
-    Serial.println("no signal");
-    BT.println("no signal");
+    dir[index] = 0;
+    if(index == 2 && dir[0] = 0 && dir[1] = 0 && dir[2] = 0)
+    {
+      analogWrite(l1_motor, 0);
+      analogWrite(l2_motor, 0);
+      analogWrite(r1_motor, 0);
+      analogWrite(r2_motor, 0);
+      Serial.println("no signal");
+      BT.println("no signal");
+    }
   }
 }
 
