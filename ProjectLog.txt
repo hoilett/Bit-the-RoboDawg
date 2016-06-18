@@ -1,7 +1,21 @@
 Project Log
 
+Friday, June 17, 2016
+Orlando visited his old lab at Vanderbilt University at demoed Bit in the lab. People were amused by it.
+
+
+​Sunday June 12, 2016
+We realized that Bit would not work in direct sunlight. It appears that the BitReceptor circuit has too high of a gain in the initial transimpedance stage. Direct sunlight is railing the op amp at the first gain stage removing the AC component of the BitBeacon. Initially when we designed the BitReceptor circuit, we had a simple transimpedance stage with a very small feedback resistor. The small feedback resistor provided gain in the first stage, but too much as to not saturate the op amp. The next gain stage has a high pass filter which filters out DC which ends up being from background light (sunlight, nearby lamps, other random IR emitters, etc.). This is our solution to make our photosensor circuit immune to ambient light. Although, it appears we made the gain of the first transimpedance stage too high by using a 22.6k resistor. A few simple tests show that a 1k or 2k resistor would be fine though.
+
+Also, Shadman is starting to work on the PCB for the new BitBeacon circuit. Should be fun!
+
+
+Saturday, June 11, 2016
+Edited the BitBeacon (light emitter circuit). Created a square wave oscillator which feeds into a square wave to sine wave filter circuit. We amplified the sine wave signal and used that signal to drive an NPN transistor which lights the IR LEDs for the BitBeacon. We also created an additional circuit that lights a red LED with the amplified AC sine wave. This gives us visual feedback on whether or not the circuit is oscillating and not just railing.
+
+
 Wednesday, June 8, 2016
-Tested Bit outside. It appears the BitBeacon stops operating outside. Not sure why. Will need to change BitBeacon circuit. I’m thinking a square wave oscillator to a square to sine wave filter.
+Tested Bit outside. It appears the BitBeacon stops operating outside. Not sure why. We have used outside plenty of times. We did make a very minor modification to Bit since the early Bit demos at night, but still..... Anyways, will need to change the BitBeacon circuit. I’m (Orlando) thinking a square wave oscillator to a square to sine wave filter.
 
 
 Friday, June 3, 2016
@@ -9,13 +23,13 @@ Taking around BME: May need to decrease the light intensity a bit more. Still ha
 
 Maybe if Bit could detect when it’s in a room and act appropriately.
 
-I still have to more or less direct the IR lights. It’s not ready for just staying on my back and having Bit follow.
+We still have to more or less direct the IR lights. Bit is not ready for follow-me action yet. It still has to be directed 20% of the time or so.
 
 Also, for clearing doors. Maybe if Bit could detect that there is a door open maybe a command “Come through the door.” Then if Bit could determine the best route to take to come through the door and start following the Beacon after that.
 
-Or maybe, when I get into a room and don’t have enough clearance for the light sensors, Bit can switch modes for follow-me. Maybe at that point, it could use the ultrasonic distance sensors.
+Or maybe, when we get into a room and don’t have enough clearance for the light sensors, Bit can switch modes for follow-me. Maybe at that point, it could use the ultrasonic distance sensors.
 
-I definitely need a fuel gauge on Bit to monitor battery voltage and maybe battery voltage vs. performance because I definitely see a difference in performance when the battery is low.
+We definitely need a fuel gauge on Bit to monitor battery voltage and maybe battery voltage vs. performance because we definitely see a difference in performance when the battery is low.
 
 
 Thursday, June 2, 2016
